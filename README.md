@@ -1,2 +1,11 @@
 # EECS-368-Javascript
-A team page for a school project
+
+Team page for EECS368 group work.
+
+<br>
+#####Team:
+
+######Cammy
+######Jackson
+######Michael
+######Stephen
