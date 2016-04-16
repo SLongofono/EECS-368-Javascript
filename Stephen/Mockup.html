@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<HTML>
+
+<body>
+
+<h1>Mockup - Graphing Utility</h1>
+<div margin="auto">
+<canvas id="graph" width="512" height="512" style="border:5px solid #000000;";></canvas>
+</div>
+<div margin="auto">
+<input onclick="box()" type="submit" id="butn" value="Box" style="width:150px;height:50px;">
+<input onclick="drawAxes()" type="submit" id="butn" value="Axes" style="width:150px;height:50px;">
+<input onclick="clearGraph()" type="submit" id="butn" value="Clear" style="width:150px;height:50px;">
+<input onclick="straightLine()" type="submit" id="butn" value="Line" style="width:150px;height:50px;">
+<br>
+<input onclick="sine()" type="submit" id="butn" value="Sine" style="width:150px;height:50px;">
+<input onclick="quadratic()" type="submit" id="butn" value="Quadratic" style="width:150px;height:50px;">
+<input onclick="smiley()" type="submit" id="butn" value="Like" style="width:150px;height:50px;">
+<input onclick="frowney()" type="submit" id="butn" value="No Like" style="width:150px;height:50px;">
+
+</div>
+</body>
+<script type="text/javascript">
+/*
+012345
+1
+2
+3
+4
+5
+*/
+
+//top left is 0,0
+//center through (256,256)
+
+
+function drawAxes(){
+	var d = document.getElementById("graph");
+	var dtext = d.getContext("2d");
+	dtext.beginPath();
+	dtext.strokeStyle = "#566D7E"
+	dtext.lineWidth = 2;
+	dtext.moveTo(0, 256);
+	dtext.lineTo(512, 256);
+	dtext.stroke();
+	dtext.strokeStyle = "#566D7E"
+	dtext.moveTo(256, 0);
+	dtext.lineTo(256, 512);
+	dtext.stroke();
+	dtext.strokeStyle = "#000000"
+	dtext.closePath();
+}
+
+
+function clearGraph(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.clearRect(0,0,512,512);	//recommended way to do this
+	drawAxes();
+}
+
+function box(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.beginPath();	//necessary for well-behaved clearing
+	ctext.lineWidth = 1;
+	ctext.strokeStyle="#000000";
+	ctext.moveTo(0,0);//cursor move
+	ctext.lineTo(0,100);	//set up a line to draw
+	ctext.lineTo(100,100);
+	ctext.lineTo(100,0);
+	ctext.lineTo(0,0);
+	ctext.stroke();		//draw the line, sounds dirty
+	ctext.closePath();
+}
+
+function straightLine(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.beginPath();	//necessary for well-behaved clearing
+	ctext.lineWidth = 1;
+	ctext.strokeStyle = "#000000";
+	ctext.moveTo(0,512);//cursor move
+	ctext.lineTo(512,0);	//set up a line to draw
+	ctext.stroke();		//draw the line
+	ctext.closePath();
+}
+
+
+function frowney(){
+	clearGraph();
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.fillStyle = "#FFFF33";
+	ctext.beginPath();	//necessary for well-behaved clearing
+	ctext.arc(256,256,200, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();
+	ctext.fillStyle = "#000000";
+	ctext.beginPath();
+	ctext.arc(175,170,25, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();
+	ctext.beginPath();
+	ctext.arc(337,170,25, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();	
+	ctext.beginPath();
+	ctext.arc(256,300,100, -.75*Math.PI, -0.25*Math.PI ,false);
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();	
+}
+
+function smiley(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.fillStyle = "#FFFF33";
+	ctext.beginPath();	//necessary for well-behaved clearing
+	ctext.arc(256,256,200, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();
+	ctext.fillStyle = "#000000";
+	ctext.beginPath();
+	ctext.arc(175,170,25, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();
+	ctext.beginPath();
+	ctext.arc(337,170,25, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();	
+	ctext.beginPath();
+	ctext.arc(256,300,100, 2*Math.PI, -Math.PI ,false);
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();	
+}
+
+
+function buildQuadratic(){
+	var arr = [];
+	for(var i = -256; i<255; i++){
+		var tupes = {};
+		tupes.x = i;
+		tupes.y = i*i;
+		console.log(tupes.x + ", " + tupes.y);
+		arr.push(tupes);
+	}
+	return arr;
+}
+
+function quadratic(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	var vals = buildQuadratic();
+	ctext.beginPath();
+	ctext.strokeStyle="#000000";
+	ctext.lineWidth = 1;
+	ctext.moveTo(0,256);	//move cursor to x axis
+	for(var i = 0; i<vals.length; i++){
+		ctext.lineTo((256+vals[i].x), (256-vals[i].y));	//setup line
+		ctext.stroke();					//draw next line
+		ctext.moveTo((256+vals[i].x), (256-vals[i].y));	//move cursor for next line (probably redundant)
+	}
+	ctext.closePath();
+}
+
+function sine(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	var vals = buildSineArr();
+	ctext.beginPath();
+	ctext.strokeStyle="#000000";
+	ctext.lineWidth = 1;
+	ctext.moveTo(0, 256); //move cursor to axis
+	for(var i = 0; i<vals.length; i++){
+		ctext.lineTo((256 +vals[i].x), (256-vals[i].y));//setup line
+		ctext.stroke();//draw next line
+		ctext.moveTo((256 + vals[i].x), (256-vals[i].y));//move cursor for next line (probably redundant)
+	}
+	ctext.closePath();
+
+}
+
+function buildSineArr(){
+	var arr = [];
+	for(var i = -256; i<255; i++){
+		var tupes = {};
+		tupes.x = i;
+		tupes.y = Math.floor(50*Math.sin((i*180)/Math.PI));
+		arr.push(tupes);
+	}
+	return arr;
+}
+
+</script>
+
+</HTML>
