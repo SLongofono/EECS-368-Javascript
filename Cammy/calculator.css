@@ -11,3 +11,28 @@
 body {
     background-color: lightblue;
 }
+#controls_display{
+	text-align: center;
+	margin-left: 300px;
+	margin-right: 300px;
+	background-color: #e7e4e4;
+	padding: 15px;
+	border-style: groove;
+	border-radius: 15px;
+	border-width: 5px;
+	border-color: green;
+}
+#screen_display{
+	background-color: #e7e4e4;
+	word-wrap: break-word;
+    word-break: break-all;
+	display: block;
+	text-align: center;
+	padding: 5px;
+	margin-left: 300px;
+	margin-right: 300px;
+	border-style: groove;
+	border-radius: 15px;
+	border-width: 5px;
+	border-color: green;
+}
