@@ -1,0 +1,422 @@
+<!DOCTYPE HTML>
+<HTML>
+
+<body>
+
+<h1>Mockup - Graphing Utility</h1>
+<div width="512" height="512">
+<canvas id="graph" width="512" height="512" style="background-color:PaleGreen; border:1px solid black;";></canvas>
+</div>
+<p id="lowLabel"></p>
+<div margin="auto">
+<input onclick="box()" type="submit" id="butn" value="Box" style="width:150px;height:50px;">
+<input onclick="drawAxes()" type="submit" id="butn" value="Axes" style="width:150px;height:50px;">
+<input onclick="clearGraph()" type="submit" id="butn" value="Clear" style="width:150px;height:50px;">
+<input onclick="straightLine()" type="submit" id="butn" value="Line" style="width:150px;height:50px;">
+<br>
+<input onclick="sine()" type="submit" id="butn" value="Sine" style="width:150px;height:50px;">
+<input onclick="quadratic()" type="submit" id="butn" value="Quadratic" style="width:150px;height:50px;">
+<input onclick="smiley()" type="submit" id="butn" value="Like" style="width:150px;height:50px;">
+<input onclick="frowney()" type="submit" id="butn" value="No Like" style="width:150px;height:50px;">
+<br>
+<input onclick="" type="submit" id="xScaleUp" value="Increase x scale" style="width:150px; height: 30px;">
+<input onclick="" type="submit" id="xScaleDown" value="Decrease x scale" style="width:150px; height: 30px;">
+<input onclick="" type="submit" id="yScaleUp" value="Increase y scale" style="width:150px; height: 30px;">
+<input onclick="" type="submit" id="yScaleDown" value="Decrease y scale" style="width:150px; height: 30px;">
+<br>
+<input onclick="drawTicks()" type="submit" id="ticks" value="Draw Ticks" style="width:150px; height: 50px;">
+<input onclick="drawLabels()" type="submit" id="texts" value="Draw Labels" style="width:150px; height: 50px;">
+<br>
+<p id="xbox">X Scale: 1</p>
+<p id="ybox">Y Scale: 1</p>
+
+</div>
+</body>
+<script type="text/javascript">
+
+//top left is 0,0
+//center through (256,256)
+
+function scaleXCoords(tupesArr, scaleFactor){
+	for(var i = 0; i<tupesArr.length; i++){
+		tupesArr[i].x = Math.floor(tupesArr[i].x * scaleFactor);
+	}
+	xCoordDisplayScaling = scaleFactor;
+}
+
+function scaleYCoords(tupesArr, scaleFactor){
+	for(var i = 0; i<tupesArr.length; i++){
+		tupesArr[i].y = Math.floor(tupesArr[i].y * scaleFactor);
+	}
+	yCoordDisplayScaling = scaleFactor;
+}
+
+//This function deals with the text offsets, by returning true if a quantity will be represented
+//in two characters or more characters, or false otherwise
+function is2Wide(x){
+	if(x>9){
+		return true;
+	}
+	if(x<0){
+		return true;
+	}
+	return false;
+}
+
+
+
+//This function deals with the text offsets, by returning true if a quantity will be represented
+//in three characters or more characters, or false otherwise
+function is3Wide(x){
+	if(x>99){
+		return true;
+	}
+	if(x<-9){
+		return true;
+	}
+	return false;
+}
+
+//This function deals with the text offsets, by returning true if a quantity will be represented
+//in four or more characters, or false otherwise
+function is4Wide(x){
+	if(x>999){
+		return true;
+	}
+	if(x<-99){
+		return true;
+	}
+	return false;
+}
+
+function drawLabels(){
+
+	//Shifts labels to be slightly offset
+	var xOff = -15;
+	var yOff = 15;
+
+
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.font="bold";
+	ctext.fillStyle="Crimson";
+	ctext.textAlign="center";
+	ctext.textBaseline = "middle";
+
+	
+	//Calibration of digits references
+	//ctext.fillText("9", 256, 256);
+	//ctext.fillText("99", 256, 256);
+	//ctext.fillText("999", 256, 256);
+	//ctext.fillText("99(9", 256, 256);
+
+	//draw up
+	for(var i = 1; i<5; i++){
+		var displayNum = Math.floor(yCoordDisplayScaling * i * 50)
+		ctext.beginPath();
+		ctext.textAlign="center";
+		ctext.textBaseline="middle";
+		ctext.fillText(displayNum, 256+xOff, (256)-(50*i));
+		ctext.closePath();
+	}
+
+	//draw down
+	for(var i = 1; i<5; i++){
+		displayNum = Math.floor(yCoordDisplayScaling * i * 50)
+		displayNum *= -1;
+		ctext.beginPath();
+		ctext.textAlign="center";
+		ctext.textBaseline="middle";
+		ctext.fillText(displayNum, 256+xOff, 256+(50*i));
+		ctext.closePath();
+	}
+
+	//draw left
+	for(var i = 1; i<5; i++){
+		displayNum = Math.floor(xCoordDisplayScaling * i * 50)
+		displayNum *= -1;
+		ctext.beginPath();
+		ctext.textAlign="center";
+		ctext.textBaseline="middle";
+		ctext.fillText(displayNum, 256-(50*i), 256+yOff);
+		ctext.closePath();
+	}
+
+	//draw right
+	for(var i = 1; i<5; i++){
+		displayNum = Math.floor(xCoordDisplayScaling * i * 50) 
+		ctext.beginPath();
+		ctext.textAlign="center";
+		ctext.textBaseline="middle";
+		ctext.fillText(displayNum, 256+(50*i), 256+yOff);
+		ctext.closePath();
+	}
+
+}
+
+function drawTicks(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.strokeStyle = "#AAAAAA"
+	ctext.lineWidth = 1;
+
+	//distance between ticks
+	var tickOff = 26;
+
+	//paint left
+
+	for(var i = 1; i<10; i++){
+		ctext.beginPath();
+		ctext.moveTo(256-(i*tickOff), 256-10);
+		ctext.lineTo(256-(i*tickOff), 256+10);
+		ctext.stroke();
+		ctext.closePath();
+	}
+
+	//paint right
+	for(i = 1; i<10; i++){
+		ctext.beginPath();
+		ctext.moveTo(256+(i*tickOff), 256-10);
+		ctext.lineTo(256+(i*tickOff), 256+10);
+		ctext.stroke();
+		ctext.closePath();
+	}
+
+	//paint up
+	for(i=1; i<10; i++){
+		ctext.beginPath();
+		ctext.moveTo(256-10, 256-(i*tickOff));
+		ctext.lineTo(256+10, 256-(i*tickOff));
+		ctext.stroke();
+		ctext.closePath();
+	}
+
+	//paint down
+	for(i=1; i<10; i++){
+		ctext.beginPath();
+		ctext.moveTo(256-10, 256+(i*tickOff));
+		ctext.lineTo(256+10, 256+(i*tickOff));
+		ctext.stroke();
+		ctext.closePath();
+	}
+	
+}
+
+
+var xScaling = 4;
+var yScaling = 1;
+var xCoordDisplayScaling = 4;
+var yCoordDisplayScaling = 1;
+var lastArr = [];
+
+//NOTE offset is a function of the display size, this is based on canvas 512x512
+//This is included as a correction
+var xoffset = 0;
+var yoffset = -0.125;
+
+//TODO add refresh
+//TODO add way to store last arr of tuples
+//TODO make use of scale buttons (change scaling, refresh automatically)
+//TODO make markings at regular intervals with reference line guides
+//TODO modify draw functions to take in window width
+
+var canvas = document.getElementById("graph");
+canvas.addEventListener("mousemove", function(event){
+	document.getElementById("lowLabel").innerHTML = (xScaling*(-256 + getAbsoluteX(canvas, event))) + ", " + (yScaling*(256 - getAbsoluteY(canvas, event)));
+}, false);
+
+//Thanks www.html5canvastutorials.com for the walkthrough of this awesome feature!! getBoundingClientRect!
+function getAbsoluteX(canvas, event){
+	var box = canvas.getBoundingClientRect();
+	return (event.clientX - box.left + xoffset);
+}
+
+function getAbsoluteY(canvas, event){
+	var box = canvas.getBoundingClientRect();
+	return (event.clientY - box.top + yoffset);
+}
+
+function drawAxes(){
+	var d = document.getElementById("graph");
+	var dtext = d.getContext("2d");
+	dtext.beginPath();
+	dtext.strokeStyle = "#566D7E"
+	dtext.lineWidth = 2;
+	dtext.moveTo(0, 256);
+	dtext.lineTo(512, 256);
+	dtext.stroke();
+	dtext.strokeStyle = "#AAAAAA"
+	dtext.moveTo(256, 0);
+	dtext.lineTo(256, 512);
+	dtext.stroke();
+	dtext.strokeStyle = "#000000"
+	dtext.closePath();
+}
+
+function clearGraph(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.clearRect(0,0,512,512);	//recommended way to do this
+	drawAxes();
+}
+
+function box(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.beginPath();	//necessary for well-behaved clearing
+	ctext.lineWidth = 1;
+	ctext.strokeStyle="#000000";
+	ctext.moveTo(0,0);//cursor move
+	ctext.lineTo(0,100);	//set up a line to draw
+	ctext.lineTo(100,100);
+	ctext.lineTo(100,0);
+	ctext.lineTo(0,0);
+	ctext.stroke();		//draw the line, sounds dirty
+	ctext.closePath();
+}
+
+function straightLine(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.beginPath();	//necessary for well-behaved clearing
+	ctext.lineWidth = 1;
+	ctext.strokeStyle = "#000000";
+	ctext.moveTo(0,512);//cursor move
+	ctext.lineTo(512,0);	//set up a line to draw
+	ctext.stroke();		//draw the line
+	ctext.closePath();
+}
+
+function frowney(){
+	clearGraph();
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.fillStyle = "#FFFF33";
+	ctext.beginPath();	//necessary for well-behaved clearing
+	ctext.arc(256,256,200, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();
+	ctext.fillStyle = "#000000";
+	ctext.beginPath();
+	ctext.arc(175,170,25, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();
+	ctext.beginPath();
+	ctext.arc(337,170,25, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();	
+	ctext.beginPath();
+	ctext.arc(256,300,100, -.75*Math.PI, -0.25*Math.PI ,false);
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();	
+}
+
+function smiley(){
+	clearGraph();
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.fillStyle = "#FFFF33";
+	ctext.beginPath();	//necessary for well-behaved clearing
+	ctext.arc(256,256,200, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();
+	ctext.fillStyle = "#000000";
+	ctext.beginPath();
+	ctext.arc(175,170,25, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();
+	ctext.beginPath();
+	ctext.arc(337,170,25, 2*Math.PI, false);
+	ctext.fill();
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();	
+	ctext.beginPath();
+	ctext.arc(256,300,100, 2*Math.PI, -Math.PI ,false);
+	ctext.lineWidth = 6;
+	ctext.strokeStyle="#000000";
+	ctext.stroke();
+	ctext.closePath();	
+}
+
+
+function buildQuadratic(){
+	var arr = [];
+	for(var i = -256; i<255; i++){
+		var tupes = {};
+		tupes.x = i;
+		tupes.y = i*i;
+		arr.push(tupes);
+	}
+	return arr;
+}
+
+function quadratic(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	var vals = buildQuadratic();
+	scaleXCoords(vals, xScaling);
+	scaleYCoords(vals, yScaling);
+	ctext.beginPath();
+	ctext.strokeStyle="#000000";
+	ctext.lineWidth = 1;
+	ctext.moveTo(0,256);	//move cursor to x axis
+	for(var i = 0; i<vals.length; i++){
+		ctext.lineTo((256+vals[i].x), (256-vals[i].y));	//setup line
+		ctext.stroke();					//draw next line
+		ctext.moveTo((256+vals[i].x), (256-vals[i].y));	//move cursor for next line (probably redundant)
+	}
+	ctext.closePath();
+}
+
+function sine(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	var vals = buildSineArr();
+	scaleXCoords(vals, xScaling);
+	scaleYCoords(vals, yScaling);
+	ctext.beginPath();
+	ctext.strokeStyle="#000000";
+	ctext.lineWidth = 1;
+	ctext.moveTo(0, 256); //move cursor to axis
+	for(var i = 0; i<vals.length; i++){
+		ctext.lineTo((256 +vals[i].x), (256-vals[i].y));//setup line
+		ctext.stroke();//draw next line
+		ctext.moveTo((256 + vals[i].x), (256-vals[i].y));//move cursor for next line (probably redundant)
+	}
+	ctext.closePath();
+
+}
+
+function buildSineArr(){
+	var arr = [];
+	for(var i = -256; i<255; i++){
+		var tupes = {};
+		tupes.x = i;
+		tupes.y = Math.floor(50*Math.sin((i*180)/Math.PI));
+		arr.push(tupes);
+	}
+	return arr;
+}
+
+</script>
+
+</HTML>
