@@ -1,20 +1,40 @@
 
 var input = "";
 
-function mapper(){
+function evaluate()
+{
 	input = document.getElementById("screen").innerHTML;
-	
 	while(replaceCaret(input))
 	{
+		//Do nothing.
+		//This loops so that every caret is found and replaced.
+	}
+	var output = eval(input);
+	document.getElementById("screen_display").innerHTML = output;
+}
+
+function mapper(leftBound, rightBound, stepSize){
+	input = document.getElementById("screen").innerHTML;
+	var arrayMap = [];
+	var y = 0;
+	while(replaceCaret(input))
+	{
+		//Do nothing.
+		//This loops so that every caret is found and replaced.
 	}
 	
-	var output = eval(input);
-
-
-	document.getElementById("screen_display").innerHTML = output;
-
-
-
+	//Start at left bound, go to right bound in steps of size stepSize.
+	//Output array will look like [x1, y1, x2, y2, x3, y3, ...]
+	for(i=leftBound; i<rightBound+stepSize; i+=stepSize)
+	{
+		arrayMap.push(i);
+		//This line assumes 'x' is used as the variable in the input from the html.
+		x = i;
+		y = eval(input);
+		arrayMap.push(y);
+	}
+	
+	return arrayMap;
 }
 
 //This function looks for carets, matches them to an x^a expression, and replaces that expression with its numerical value.
@@ -128,12 +148,4 @@ function getPowerValue(left, right)
 	var powerValue = Math.pow(eval(left), eval(right));
 	var powerString = powerValue.toString();
 	return powerString;
-}
-
-
-function getDistance(pointA, pointB, distanceDesired){
-
-
-
-
 }
