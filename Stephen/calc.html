@@ -7,7 +7,7 @@
 <div width="512" height="512">
 <canvas id="graph" width="512" height="512" style="background-color:PaleGreen; border:1px solid black;";></canvas>
 </div>
-<p id="lowLabel"></p>
+<div><p id="lowLabel"></p><p>Absolute Coordinates</p></div>
 <div margin="auto">
 <input onclick="box()" type="submit" id="butn" value="Box" style="width:150px;height:50px;">
 <input onclick="drawAxes()" type="submit" id="butn" value="Axes" style="width:150px;height:50px;">
@@ -19,10 +19,10 @@
 <input onclick="smiley()" type="submit" id="butn" value="Like" style="width:150px;height:50px;">
 <input onclick="frowney()" type="submit" id="butn" value="No Like" style="width:150px;height:50px;">
 <br>
-<input onclick="" type="submit" id="xScaleUp" value="Increase x scale" style="width:150px; height: 30px;">
-<input onclick="" type="submit" id="xScaleDown" value="Decrease x scale" style="width:150px; height: 30px;">
-<input onclick="" type="submit" id="yScaleUp" value="Increase y scale" style="width:150px; height: 30px;">
-<input onclick="" type="submit" id="yScaleDown" value="Decrease y scale" style="width:150px; height: 30px;">
+<input onclick="incrementXScale()" type="submit" id="xScaleUp" value="Increase x scale" style="width:150px; height: 30px;">
+<input onclick="decrementXScale()" type="submit" id="xScaleDown" value="Decrease x scale" style="width:150px; height: 30px;">
+<input onclick="incrementYScale()" type="submit" id="yScaleUp" value="Increase y scale" style="width:150px; height: 30px;">
+<input onclick="decrementYScale()" type="submit" id="yScaleDown" value="Decrease y scale" style="width:150px; height: 30px;">
 <br>
 <input onclick="drawTicks()" type="submit" id="ticks" value="Draw Ticks" style="width:150px; height: 50px;">
 <input onclick="drawLabels()" type="submit" id="texts" value="Draw Labels" style="width:150px; height: 50px;">
@@ -41,52 +41,14 @@ function scaleXCoords(tupesArr, scaleFactor){
 	for(var i = 0; i<tupesArr.length; i++){
 		tupesArr[i].x = Math.floor(tupesArr[i].x * scaleFactor);
 	}
-	xCoordDisplayScaling = scaleFactor;
+	xCoordDisplayScaling = 1/scaleFactor;
 }
 
 function scaleYCoords(tupesArr, scaleFactor){
 	for(var i = 0; i<tupesArr.length; i++){
 		tupesArr[i].y = Math.floor(tupesArr[i].y * scaleFactor);
 	}
-	yCoordDisplayScaling = scaleFactor;
-}
-
-//This function deals with the text offsets, by returning true if a quantity will be represented
-//in two characters or more characters, or false otherwise
-function is2Wide(x){
-	if(x>9){
-		return true;
-	}
-	if(x<0){
-		return true;
-	}
-	return false;
-}
-
-
-
-//This function deals with the text offsets, by returning true if a quantity will be represented
-//in three characters or more characters, or false otherwise
-function is3Wide(x){
-	if(x>99){
-		return true;
-	}
-	if(x<-9){
-		return true;
-	}
-	return false;
-}
-
-//This function deals with the text offsets, by returning true if a quantity will be represented
-//in four or more characters, or false otherwise
-function is4Wide(x){
-	if(x>999){
-		return true;
-	}
-	if(x<-99){
-		return true;
-	}
-	return false;
+	yCoordDisplayScaling = 1/scaleFactor;
 }
 
 function drawLabels(){
@@ -112,7 +74,7 @@ function drawLabels(){
 
 	//draw up
 	for(var i = 1; i<5; i++){
-		var displayNum = Math.floor(yCoordDisplayScaling * i * 50)
+		var displayNum = (yCoordDisplayScaling * i * 50)
 		ctext.beginPath();
 		ctext.textAlign="center";
 		ctext.textBaseline="middle";
@@ -122,7 +84,7 @@ function drawLabels(){
 
 	//draw down
 	for(var i = 1; i<5; i++){
-		displayNum = Math.floor(yCoordDisplayScaling * i * 50)
+		displayNum = (yCoordDisplayScaling * i * 50)
 		displayNum *= -1;
 		ctext.beginPath();
 		ctext.textAlign="center";
@@ -133,7 +95,7 @@ function drawLabels(){
 
 	//draw left
 	for(var i = 1; i<5; i++){
-		displayNum = Math.floor(xCoordDisplayScaling * i * 50)
+		displayNum = (xCoordDisplayScaling * i * 50)
 		displayNum *= -1;
 		ctext.beginPath();
 		ctext.textAlign="center";
@@ -203,26 +165,61 @@ function drawTicks(){
 }
 
 
-var xScaling = 4;
+var xScaling = 1;
 var yScaling = 1;
-var xCoordDisplayScaling = 4;
+var xCoordDisplayScaling = 1;
 var yCoordDisplayScaling = 1;
 var lastArr = [];
+
+function updateScaleDisplay(){
+
+	var x = document.getElementById("xbox");
+	var y = document.getElementById("ybox");
+	x.innerHTML = "X Scale: " + xScaling.toFixed(2) + ":1.0"
+	y.innerHTML = "Y Scale: " + yScaling.toFixed(2) + ":1.0"
+
+}
+
+function incrementXScale(){
+	xScaling *=2;
+	xCoordDisplayScaling /=2;
+	updateScaleDisplay();
+}
+
+function incrementYScale(){
+	yScaling *=2;
+	yCoordDisplayScaling /=2;
+	updateScaleDisplay();
+}
+
+function decrementXScale(){
+	xScaling /=2;
+	xCoordDisplayScaling *=2;
+	updateScaleDisplay();
+}
+
+function decrementYScale(){
+	yScaling /=2;
+	yCoordDisplayScaling *=2;
+	updateScaleDisplay();
+}
+
 
 //NOTE offset is a function of the display size, this is based on canvas 512x512
 //This is included as a correction
 var xoffset = 0;
 var yoffset = -0.125;
 
-//TODO add refresh
-//TODO add way to store last arr of tuples
-//TODO make use of scale buttons (change scaling, refresh automatically)
-//TODO make markings at regular intervals with reference line guides
-//TODO modify draw functions to take in window width
+//Stores the last round of display values from input to allow
+//adjustment of the display
+var lastVals = [];
+
+//TODO add refresh??
+//TODO modify draw functions to take in window width??
 
 var canvas = document.getElementById("graph");
 canvas.addEventListener("mousemove", function(event){
-	document.getElementById("lowLabel").innerHTML = (xScaling*(-256 + getAbsoluteX(canvas, event))) + ", " + (yScaling*(256 - getAbsoluteY(canvas, event)));
+	document.getElementById("lowLabel").innerHTML = (xCoordDisplayScaling*(-256 + getAbsoluteX(canvas, event))).toFixed(1) + ", " + (yCoordDisplayScaling*(256 - getAbsoluteY(canvas, event))).toFixed(1);
 }, false);
 
 //Thanks www.html5canvastutorials.com for the walkthrough of this awesome feature!! getBoundingClientRect!
@@ -373,6 +370,7 @@ function quadratic(){
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
 	var vals = buildQuadratic();
+	lastVals = deepCopy(vals);
 	scaleXCoords(vals, xScaling);
 	scaleYCoords(vals, yScaling);
 	ctext.beginPath();
@@ -391,6 +389,7 @@ function sine(){
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
 	var vals = buildSineArr();
+	lastVals = deepCopy(vals);
 	scaleXCoords(vals, xScaling);
 	scaleYCoords(vals, yScaling);
 	ctext.beginPath();
@@ -411,10 +410,18 @@ function buildSineArr(){
 	for(var i = -256; i<255; i++){
 		var tupes = {};
 		tupes.x = i;
-		tupes.y = Math.floor(50*Math.sin((i*180)/Math.PI));
+		tupes.y = Math.floor(5*Math.sin((i*180)/Math.PI));
 		arr.push(tupes);
 	}
 	return arr;
+}
+
+function deepCopy(arr){
+	temp = []
+	for(var i = 0; i<arr.length; i++){
+		temp.push(arr[i]);
+	}
+	return temp;
 }
 
 </script>
