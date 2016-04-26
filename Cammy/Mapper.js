@@ -1,8 +1,7 @@
 
 var input = "";
 
-function evaluate()
-{
+function evaluateThis(){
 	input = document.getElementById("screen").innerHTML;
 	while(replaceCaret(input))
 	{
@@ -10,7 +9,7 @@ function evaluate()
 		//This loops so that every caret is found and replaced.
 	}
 	var output = eval(input);
-	document.getElementById("screen").innerHTML = output;
+	document.getElementById("screen_display").innerHTML = output;
 }
 
 function mapper(leftBound, rightBound, stepSize){
@@ -24,7 +23,6 @@ function mapper(leftBound, rightBound, stepSize){
 	}
 	
 	//Start at left bound, go to right bound in steps of size stepSize.
-	//Output array will look like [x1, y1, x2, y2, x3, y3, ...]
 	for(i=leftBound; i<rightBound+stepSize; i+=stepSize)
 	{
 		var tuple = {};
