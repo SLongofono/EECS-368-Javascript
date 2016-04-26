@@ -27,11 +27,14 @@ function mapper(leftBound, rightBound, stepSize){
 	//Output array will look like [x1, y1, x2, y2, x3, y3, ...]
 	for(i=leftBound; i<rightBound+stepSize; i+=stepSize)
 	{
-		arrayMap.push(i);
+		var tuple = {};
 		//This line assumes 'x' is used as the variable in the input from the html.
 		x = i;
 		y = eval(input);
-		arrayMap.push(y);
+
+		tuple.x = i;
+		tuple.y = y
+		arrayMap.push(tuple);
 	}
 	
 	return arrayMap;
