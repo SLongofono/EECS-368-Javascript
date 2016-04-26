@@ -74,7 +74,8 @@ function drawLabels(){
 
 	//draw up
 	for(var i = 1; i<5; i++){
-		var displayNum = (yCoordDisplayScaling * i * 50)
+		var displayNum = (yCoordDisplayScaling * i * 50).toFixed(2)
+		displayNum*=1;
 		ctext.beginPath();
 		ctext.textAlign="center";
 		ctext.textBaseline="middle";
@@ -84,7 +85,7 @@ function drawLabels(){
 
 	//draw down
 	for(var i = 1; i<5; i++){
-		displayNum = (yCoordDisplayScaling * i * 50)
+		displayNum = (yCoordDisplayScaling * i * 50).toFixed(2)
 		displayNum *= -1;
 		ctext.beginPath();
 		ctext.textAlign="center";
@@ -95,7 +96,7 @@ function drawLabels(){
 
 	//draw left
 	for(var i = 1; i<5; i++){
-		displayNum = (xCoordDisplayScaling * i * 50)
+		displayNum = (xCoordDisplayScaling * i * 50).toFixed(2)
 		displayNum *= -1;
 		ctext.beginPath();
 		ctext.textAlign="center";
@@ -106,7 +107,8 @@ function drawLabels(){
 
 	//draw right
 	for(var i = 1; i<5; i++){
-		displayNum = Math.floor(xCoordDisplayScaling * i * 50) 
+		displayNum = (xCoordDisplayScaling * i * 50) .toFixed(2)
+		displayNum*=1;
 		ctext.beginPath();
 		ctext.textAlign="center";
 		ctext.textBaseline="middle";
@@ -181,26 +183,34 @@ function updateScaleDisplay(){
 }
 
 function incrementXScale(){
-	xScaling *=2;
-	xCoordDisplayScaling /=2;
+	if(xScaling < 200){
+		xScaling *=2;
+		xCoordDisplayScaling /=2;
+	}
 	updateScaleDisplay();
 }
 
 function incrementYScale(){
-	yScaling *=2;
-	yCoordDisplayScaling /=2;
+	if(yScaling < 200){
+		yScaling *=2;
+		yCoordDisplayScaling /=2;
+	}
 	updateScaleDisplay();
 }
 
 function decrementXScale(){
-	xScaling /=2;
-	xCoordDisplayScaling *=2;
+	if(xScaling > 0.1){
+		xScaling /=2;
+		xCoordDisplayScaling *=2;
+	}
 	updateScaleDisplay();
 }
 
 function decrementYScale(){
-	yScaling /=2;
-	yCoordDisplayScaling *=2;
+	if(yScaling > 0.1){
+		yScaling /=2;
+		yCoordDisplayScaling *=2;
+	}
 	updateScaleDisplay();
 }
 
@@ -414,6 +424,24 @@ function buildSineArr(){
 		arr.push(tupes);
 	}
 	return arr;
+}
+
+function drawGraph(coordArray){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	lastVals = deepCopy(coordArray);
+	scaleXCoords(coordArray, xScaling);
+	scaleYCoords(coordArray, yScaling);
+	ctext.beginPath();
+	ctext.strokeStyle="#000000";
+	ctext.lineWidth = 1;
+	ctext.moveTo(0, 256); //move cursor to axis
+	for(var i = 0; i<coordArray.length; i++){
+		ctext.lineTo((256 +coordArray[i].x), (256-coordArray[i].y));//setup line
+		ctext.stroke();//draw next line
+		ctext.moveTo((256 + coordArray[i].x), (256-coordArray[i].y));//move cursor for next line (probably redundant)
+	}
+	ctext.closePath();
 }
 
 function deepCopy(arr){
