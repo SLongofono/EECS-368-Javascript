@@ -56,9 +56,12 @@ function replaceCaret(){
 		//leftHand will hold the base x
 		//rightHand will hold the exponent a
 		//For now, each holds everything to the left or right of the caret in question.
-		var leftHand = input.slice(startIndex, caretIndex-1);
+		var leftHand = input.slice(startIndex, caretIndex);
 		var rightHand = input.slice(caretIndex+1, endIndex);
 
+/**		alert(leftHand);
+		alert(rightHand);
+**/		
 		//leftRemainder will hold whatever is to the left of the base
 		//rightRemainder will hold whatever is to the right of the exponent
 		var leftRemainder = "";
@@ -67,7 +70,7 @@ function replaceCaret(){
 		//With these conditionals, we check for parentheses, whose operator precedence negates the need to search for a start/end index.
 		if(input.charAt(caretIndex-1) == ')')
 		{
-			startIndex = input.indexOf('(');
+			startIndex = leftHand.lastIndexOf('(');
 		}
 		else
 		{
@@ -75,7 +78,7 @@ function replaceCaret(){
 		}
 		if(input.charAt(caretIndex+1) == '(')
 		{
-			endIndex = input.lastIndexOf(')');
+			endIndex = input.indexOf(')');
 		}
 		else
 		{
@@ -95,8 +98,8 @@ function replaceCaret(){
 		input = leftRemainder + powerString + rightRemainder;
 		
 
-/**
-	These alerts are for testing the slicing above.
+
+/**	These alerts are for testing the slicing above.
 		alert(leftRemainder);
 		alert(leftHand);
 		alert(rightHand);
@@ -116,7 +119,7 @@ function findStartIndex(caretIndex)
 
 	for(i=caretIndex-1; i>-1; i--)
 	{
-		if (input.charAt(i)=='+' || input.charAt(i)=='-' || input.charAt(i)=='*' || input.charAt(i)=='/')
+		if (input.charAt(i)=='+' || input.charAt(i)=='-' || input.charAt(i)=='*' || input.charAt(i)=='/'|| input.charAt(i)=='(')
 		{
 			start = i+1;
 			return start;
@@ -133,7 +136,7 @@ function findEndIndex(caretIndex)
 
 	for(i=caretIndex+1; i<input.length; i++)
 	{
-		if (input.charAt(i)=='+' || input.charAt(i)=='-' || input.charAt(i)=='*' || input.charAt(i)=='/')
+		if (input.charAt(i)=='+' || input.charAt(i)=='-' || input.charAt(i)=='*' || input.charAt(i)=='/'|| input.charAt(i)==')')
 		{
 			end = i-1;
 			return end;
