@@ -8,6 +8,9 @@
 #ToEvaluate{
 	width: 158px;
 }
+#ToClear{
+	width: 158px;
+}
 body {
 	background-color: lightblue;
 }
