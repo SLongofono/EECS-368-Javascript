@@ -206,6 +206,7 @@ document.getElementById("Decimal").addEventListener('click', function() {
 });
 document.getElementById("ToClear").addEventListener('click', function() {
 	expression = "";	//clears expression
+	document.getElementById("results").innerHTML = ""; //clears results
 	isNegative = false; //resets values
 	isParenthesis = false; 
 	isExponent = false; 
@@ -231,12 +232,6 @@ document.getElementById("Exponent").addEventListener('click', function() {
 	
 	displayScreen();
 });
-document.getElementById("ToEvaluate").addEventListener('click', function() {
-
-	
-	displayScreen();
-});
-
 
 
 //call calculator

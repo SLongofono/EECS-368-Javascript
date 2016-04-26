@@ -10,61 +10,60 @@
 			href="calculator.css">
 </head>
 <body>
-	<br><br>
-	<!-- Main Display -->	
-	<!--<div id="main_display"> -->
-		<!-- Display Screen -->
-		<div id="screen_display" class="displays">
-			<p id="screen"><span id="screen_span"></span><span id="g_or_i"></span></p>
-		</div>
-		</br>
-		<div id="results_display" class="displays">
-			<p id="results"></p>
-		</div>
-		</br>
-		<!--Display Calculator Controls -->
-		<div id="controls_display">	
+	</br></br>
+	<!-- Display Screen (User Input)-->
+	<div id="screen_display" class="displays">
+		<p id="screen"><span id="screen_span"></span><span id="g_or_i"></span></p>
+	</div>
+	</br>
+	<!-- Display Results -->
+	<div id="results_display" class="displays">
+		<p id="results"></p>
+	</div>
+	</br>
+	<!--Display Calculator Controls -->
+	<div id="controls_display">	
 
-			<!-- Select Integration or Graphing mode -->
-			<div id="integrate_or_graph">
-				  <input type="radio" name="inte_or_gra" id="display_graphing" checked>Graph
-				  <input type="radio" name="inte_or_gra" id="display_integration">Integrate
-			</div>
-		
-			<!-- Set expression -->
-			<div id="set_expression">
-				<button class="button" value = "1" id="One">1</button>
-				<button class="button" value = "2" id="Two">2</button>
-				<button class="button" value = "3" id="Three">3</button>
-				</br>
-				<button class="button" value = "4" id="Four">4</button>
-				<button class="button" value = "5" id="Five">5</button>
-				<button class="button" value = "6" id="Six">6</button>
-				</br>
-				<button class="button" value = "7" id="Seven">7</button>
-				<button class="button" value = "8" id="Eight">8</button>
-				<button class="button" value = "9" id="Nine">9</button>
-				</br>
-				<button class="button" value = "0" id="Zero">0</button>
-				<button class="button" value = "()" id="Parenthesis">( )</button>
-				<button class="button" value = "^" id="Exponent">^</button>
-				</br>
-				<button class="button" value = "*" id="Multiply">*</button>
-				<button class="button" value = "/" id="Divide">/</button>
-				<button class="button" value = "+" id="Plus">+</button>
-				</br>
-				<button class="button" value = "-" id="Minus">-</button>
-				<button class="button" value = "." id="Decimal">.</button>
-				<button class="button" value = "x" id="Variable">x</button>
-				</br>
-				<button class="button" id="ToClear">Clear</button>
-				</br>
-				<button class="button" id="ToEvaluate" onclick="evaluateThis()">Evaluate</button> <!-- This button evaluates, return function here-->
-			</div>
+		<!-- Select Integration or Graphing mode -->
+		<div id="integrate_or_graph">
+			  <input type="radio" name="inte_or_gra" id="display_graphing" checked>Graph
+			  <input type="radio" name="inte_or_gra" id="display_integration">Integrate
 		</div>
-		</br>
+	
+		<!-- Set expression -->
+		<div id="set_expression">
+			<button class="button" value = "1" id="One">1</button>
+			<button class="button" value = "2" id="Two">2</button>
+			<button class="button" value = "3" id="Three">3</button>
+			</br>
+			<button class="button" value = "4" id="Four">4</button>
+			<button class="button" value = "5" id="Five">5</button>
+			<button class="button" value = "6" id="Six">6</button>
+			</br>
+			<button class="button" value = "7" id="Seven">7</button>
+			<button class="button" value = "8" id="Eight">8</button>
+			<button class="button" value = "9" id="Nine">9</button>
+			</br>
+			<button class="button" value = "0" id="Zero">0</button>
+			<button class="button" value = "()" id="Parenthesis">( )</button>
+			<button class="button" value = "^" id="Exponent">^</button>
+			</br>
+			<button class="button" value = "*" id="Multiply">*</button>
+			<button class="button" value = "/" id="Divide">/</button>
+			<button class="button" value = "+" id="Plus">+</button>
+			</br>
+			<button class="button" value = "-" id="Minus">-</button>
+			<button class="button" value = "." id="Decimal">.</button>
+			<button class="button" value = "x" id="Variable">x</button>
+			</br>
+			<button class="button" id="ToClear">Clear</button>
+			</br>
+			<button class="button" id="ToEvaluate" onclick="evaluateThis()">Evaluate</button> <!-- This button evaluates, return function here-->
+		</div>
+	</div>
+	</br>
+	
 
-	<!-- </div> -->
 	
 	<script type="text/javascript" 
 			src="calculator.js">
