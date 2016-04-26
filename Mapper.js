@@ -10,7 +10,7 @@ function evaluate()
 		//This loops so that every caret is found and replaced.
 	}
 	var output = eval(input);
-	document.getElementById("screen_display").innerHTML = output;
+	document.getElementById("screen").innerHTML = output;
 }
 
 function mapper(leftBound, rightBound, stepSize){
