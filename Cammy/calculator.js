@@ -36,7 +36,10 @@ document.getElementById("One").addEventListener('click', function() {
 	{ 
 		expression += "*";
 	}
-	expression += document.getElementById("One").value;
+	if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("One").value;
+	}
 	displayScreen();
 });
 document.getElementById("Two").addEventListener('click', function() {
@@ -45,7 +48,10 @@ document.getElementById("Two").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Two").value;
+	if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Two").value;
+	}
 	displayScreen();
 });
 document.getElementById("Three").addEventListener('click', function() {
@@ -54,7 +60,10 @@ document.getElementById("Three").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Three").value;
+	if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Three").value;
+	}
 	displayScreen();
 });
 document.getElementById("Four").addEventListener('click', function() {
@@ -63,7 +72,10 @@ document.getElementById("Four").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Four").value;
+	if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Four").value;
+	}
 	displayScreen();
 });
 document.getElementById("Five").addEventListener('click', function() {
@@ -72,7 +84,10 @@ document.getElementById("Five").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Five").value;
+	if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Five").value;
+	}
 	displayScreen();
 });
 document.getElementById("Six").addEventListener('click', function() {
@@ -81,7 +96,10 @@ document.getElementById("Six").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Six").value;
+	if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Six").value;
+	}
 	displayScreen();
 });
 document.getElementById("Seven").addEventListener('click', function() {
@@ -90,7 +108,10 @@ document.getElementById("Seven").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Seven").value;
+	if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Seven").value;
+	}
 	displayScreen();
 });
 document.getElementById("Eight").addEventListener('click', function() {
@@ -99,7 +120,10 @@ document.getElementById("Eight").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Eight").value;
+		if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Eight").value;
+	}
 	displayScreen();
 });
 document.getElementById("Nine").addEventListener('click', function() {
@@ -108,7 +132,10 @@ document.getElementById("Nine").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Nine").value;
+		if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Nine").value;
+	}
 	displayScreen();
 });
 document.getElementById("Zero").addEventListener('click', function() {
@@ -117,12 +144,16 @@ document.getElementById("Zero").addEventListener('click', function() {
 		expression += "*"; 
 		isDecimal = false; 
 	}
-	expression += document.getElementById("Zero").value;
+		if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Zero").value;
+	}
 	displayScreen();
 });
 document.getElementById("Plus").addEventListener('click', function() {
 	if (checkValidExpression(expression) && expression != "")
 	{	
+
 		expression += document.getElementById("Plus").value;
 		isDecimal = false;
 	}
@@ -131,6 +162,7 @@ document.getElementById("Plus").addEventListener('click', function() {
 document.getElementById("Minus").addEventListener('click', function() {
 	if (checkValidExpression(expression) && expression != "")
 	{	
+		
 		expression += document.getElementById("Minus").value;
 		isDecimal = false;
 	}
@@ -140,6 +172,7 @@ document.getElementById("Minus").addEventListener('click', function() {
 document.getElementById("Multiply").addEventListener('click', function() {
 	if (checkValidExpression(expression) && expression != "")
 	{	
+
 		expression += document.getElementById("Multiply").value;
 		isDecimal = false;
 	}
@@ -148,6 +181,7 @@ document.getElementById("Multiply").addEventListener('click', function() {
 document.getElementById("Divide").addEventListener('click', function() {
 	if (checkValidExpression(expression) && expression != "")
 	{	
+
 		expression += document.getElementById("Divide").value;
 		isDecimal = false;
 	}
@@ -179,9 +213,18 @@ document.getElementById("ToClear").addEventListener('click', function() {
 	displayScreen();
 	
 });
+document.getElementById("Variable").addEventListener('click', function() {
+	if (!expression.endsWith("x"))
+	{
+		expression += document.getElementById("Variable").value;
+	}
+	displayScreen();
+	
+});
 document.getElementById("Exponent").addEventListener('click', function() {
 	if (checkValidExpression(expression) && expression != "" && !isExponent)
 	{	
+
 		expression += document.getElementById("Exponent").value;
 		isExponent = true;
 	}

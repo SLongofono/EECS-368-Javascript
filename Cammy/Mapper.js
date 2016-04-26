@@ -9,7 +9,7 @@ function evaluateThis(){
 		//This loops so that every caret is found and replaced.
 	}
 	var output = eval(input);
-	document.getElementById("screen_display").innerHTML = output;
+	document.getElementById("results").innerHTML = output;
 }
 
 function mapper(leftBound, rightBound, stepSize){
