@@ -1,5 +1,6 @@
 
 var input = "";
+var x = 10;
 
 function evaluateThis(){
 	input = document.getElementById("screen").innerHTML;
