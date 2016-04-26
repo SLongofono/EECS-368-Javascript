@@ -196,7 +196,7 @@ document.getElementById("Parenthesis").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("Decimal").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "" && !isDecimal && !expression.endsWith(")") && !expression.endsWith("x"))
+	if (checkValidExpression(expression) && !expression.endsWith("x") && expression != "" && !isDecimal && !expression.endsWith(")") && !expression.endsWith("x"))
 	{	
 		expression += document.getElementById("Decimal").value;
 		isDecimal = true;
