@@ -234,7 +234,18 @@ document.getElementById("Exponent").addEventListener('click', function() {
 	
 	displayScreen();
 });
-
+document.getElementById("ToEvaluate").addEventListener('click', function() {
+	if (expression.endsWith("."))
+	{
+		expression += "0";
+	}
+	if (checkValidExpression(expression))
+	{
+		expression = "("+expression+")";
+	}
+	
+	displayScreen();
+});
 
 //call calculator
 calculator();
