@@ -30,7 +30,9 @@ function checkValidExpression(expr)
 	}
 	return true;
 }
-/*	Event Listeners for 0-9, +, -, /, *, (), ., clear	*/
+/*	Event Listeners for 0-9, +, -, /, *, (), ., x, ^, clear
+*	Each event listener will only add its variable if valid conditions are met
+*/
 document.getElementById("One").addEventListener('click', function() {
 	if (expression.endsWith(")"))
 	{ 
@@ -215,7 +217,7 @@ document.getElementById("ToClear").addEventListener('click', function() {
 	
 });
 document.getElementById("Variable").addEventListener('click', function() {
-	if (!expression.endsWith("x"))
+	if (!expression.endsWith("x") && !expression.endsWith("."))
 	{
 		expression += document.getElementById("Variable").value;
 	}
