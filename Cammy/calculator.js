@@ -239,7 +239,7 @@ document.getElementById("ToEvaluate").addEventListener('click', function() {
 	{
 		expression += "0";
 	}
-	if (checkValidExpression(expression))
+	if (checkValidExpression(expression) && !expression.endsWith(")"))
 	{
 		expression = "("+expression+")";
 	}
