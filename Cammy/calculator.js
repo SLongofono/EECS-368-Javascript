@@ -225,11 +225,11 @@ document.getElementById("Variable").addEventListener('click', function() {
 	
 });
 document.getElementById("Exponent").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "" && !isExponent)
+	if (checkValidExpression(expression) && expression != "")
 	{	
 
 		expression += document.getElementById("Exponent").value;
-		isExponent = true;
+
 	}
 	
 	displayScreen();
