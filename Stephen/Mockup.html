@@ -1,38 +1,347 @@
-<!DOCTYPE HTML>
-<HTML>
-
+<!--
+	Authors:
+	Date:
+	File: calculator.html
+-->
+<html>
+<head>
+	<title>EECS 368 - Calculator</title>
+	<link rel="stylesheet" 
+			href="calculator.css">
+</head>
 <body>
+	</br></br>
+	<!-- Display Screen (User Input)-->
+	<div id="screen_display" class="displays">
+		<p id="screen"><span id="screen_span"></span><span id="g_or_i"></span></p>
+	</div>
+	</br>
+	<!-- Display Results -->
+	<div id="results_display" class="displays">
+		<p id="results"></p>
+	</div>
+	</br>
+	<!--Display Calculator Controls -->
+	<div id="controls_display">	
 
-<h1>Mockup - Graphing Utility</h1>
-<div margin="auto">
-<canvas id="graph" width="512" height="512" style="border:5px solid #000000;";></canvas>
-</div>
-<div margin="auto">
-<input onclick="box()" type="submit" id="butn" value="Box" style="width:150px;height:50px;">
-<input onclick="drawAxes()" type="submit" id="butn" value="Axes" style="width:150px;height:50px;">
-<input onclick="clearGraph()" type="submit" id="butn" value="Clear" style="width:150px;height:50px;">
-<input onclick="straightLine()" type="submit" id="butn" value="Line" style="width:150px;height:50px;">
-<br>
-<input onclick="sine()" type="submit" id="butn" value="Sine" style="width:150px;height:50px;">
-<input onclick="quadratic()" type="submit" id="butn" value="Quadratic" style="width:150px;height:50px;">
-<input onclick="smiley()" type="submit" id="butn" value="Like" style="width:150px;height:50px;">
-<input onclick="frowney()" type="submit" id="butn" value="No Like" style="width:150px;height:50px;">
+		<!-- Select Integration or Graphing mode -->
+		<div id="integrate_or_graph">
+			  <input type="radio" name="inte_or_gra" id="display_graphing" checked>Graph
+			  <input type="radio" name="inte_or_gra" id="display_integration">Integrate
+		</div>
+	
+		<!-- Set expression -->
+		<div id="set_expression">
+			<button class="button" value = "1" id="One">1</button>
+			<button class="button" value = "2" id="Two">2</button>
+			<button class="button" value = "3" id="Three">3</button>
+			</br>
+			<button class="button" value = "4" id="Four">4</button>
+			<button class="button" value = "5" id="Five">5</button>
+			<button class="button" value = "6" id="Six">6</button>
+			</br>
+			<button class="button" value = "7" id="Seven">7</button>
+			<button class="button" value = "8" id="Eight">8</button>
+			<button class="button" value = "9" id="Nine">9</button>
+			</br>
+			<button class="button" value = "0" id="Zero">0</button>
+			<button class="button" value = "()" id="Parenthesis">( )</button>
+			<button class="button" value = "^" id="Exponent">^</button>
+			</br>
+			<button class="button" value = "*" id="Multiply">*</button>
+			<button class="button" value = "/" id="Divide">/</button>
+			<button class="button" value = "+" id="Plus">+</button>
+			</br>
+			<button class="button" value = "-" id="Minus">-</button>
+			<button class="button" value = "." id="Decimal">.</button>
+			<button class="button" value = "x" id="Variable">x</button>
+			</br>
+			<button class="button" id="ToClear">Clear</button>
+			</br>
+			<button class="button" id="ToEvaluate" onclick="evaluateThis()">Evaluate</button> <!-- This button evaluates, return function here-->
+		</div>
+	</div>
+	<br>
+	<div style="width: 512px; height: 512px; background-color:PaleGreen; margin:0 auto;">
+	<div width="512" height="512">
+		<canvas id="graph" height="512" width="512"></canvas>
+	</div>
+	<div style="text-align:center;"><p id="lowLabel"></p></div>
+	<div style="text-align:center;">
+		<input onclick="sine()" type="submit" id="butn" value="Sine" class="graphButton">
+		<input onclick="quadratic()" type="submit" id="butn" value="Quadratic" class="graphButton">
+		<input onclick="drawAxes()" type="submit" id="butn" value="Axes" class="graphButton">
+		<input onclick="drawTicks()" type="submit" id="ticks" value="Ticks" class="graphButton">
+		<input onclick="drawLabels()" type="submit" id="texts" value="Labels" class="graphButton">
+		<br>
+		<input onclick="incrementXScale()" type="submit" id="xScaleUp" value="Zoom X+" class="graphButton">
+		<input onclick="decrementXScale()" type="submit" id="xScaleDown" value="Zoom X-" class="graphButton">
+		<input onclick="clearGraph()" type="submit" id="butn" value="Clear" class="graphButton">
+		<input onclick="incrementYScale()" type="submit" id="yScaleUp" value="Zoom Y+" class="graphButton">
+		<input onclick="decrementYScale()" type="submit" id="yScaleDown" value="Zoom Y-" class="graphButton">
+		<br>
+		<div id="xbox" style="text-align:center;">X Scale: 1.0</div>
+		<div id="ybox" style="text-align:center;">Y Scale: 1.0</div>
+	</div>
+	</div>
+	</br>
+	
 
-</div>
-</body>
-<script type="text/javascript">
-/*
-012345
-1
-2
-3
-4
-5
-*/
+	
+	<script type="text/javascript" 
+			src="calculator.js">
+	</script>
+	
+	<script type="text/javascript" src="Mapper.js"></script>
+	<script type="text/javascript">
 
 //top left is 0,0
 //center through (256,256)
 
+function scaleXCoords(tupesArr, scaleFactor){
+	for(var i = 0; i<tupesArr.length; i++){
+		tupesArr[i].x = Math.floor(tupesArr[i].x * scaleFactor);
+	}
+	xCoordDisplayScaling = 1/scaleFactor;
+}
+
+function scaleYCoords(tupesArr, scaleFactor){
+	for(var i = 0; i<tupesArr.length; i++){
+		tupesArr[i].y = Math.floor(tupesArr[i].y * scaleFactor);
+	}
+	yCoordDisplayScaling = 1/scaleFactor;
+}
+
+function refresh(){
+	//clear the screen
+	clearGraph();
+	
+	//draw axes
+	drawAxes();
+	
+	//draw labels
+	drawLabels();
+	
+	//graph last array again
+	drawGraph(lastSetGraphed);
+}
+
+function drawLabels(){
+	//clearGraph();
+
+	//Shifts labels to be slightly offset
+	var xOff = -15;
+	var yOff = 15;
+
+
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.font="bold";
+	ctext.fillStyle="Crimson";
+	ctext.textAlign="center";
+	ctext.textBaseline = "middle";
+
+	
+	//Calibration of digits references
+	//ctext.fillText("9", 256, 256);
+	//ctext.fillText("99", 256, 256);
+	//ctext.fillText("999", 256, 256);
+	//ctext.fillText("99(9", 256, 256);
+
+	//draw up
+	for(var i = 1; i<5; i++){
+		var displayNum = (yCoordDisplayScaling * i * 50).toFixed(2)
+		displayNum*=1;
+		ctext.beginPath();
+		ctext.textAlign="center";
+		ctext.textBaseline="middle";
+		ctext.fillText(displayNum, 256+xOff, (256)-(50*i));
+		ctext.closePath();
+	}
+
+	//draw down
+	for(var i = 1; i<5; i++){
+		displayNum = (yCoordDisplayScaling * i * 50).toFixed(2)
+		displayNum *= -1;
+		ctext.beginPath();
+		ctext.textAlign="center";
+		ctext.textBaseline="middle";
+		ctext.fillText(displayNum, 256+xOff, 256+(50*i));
+		ctext.closePath();
+	}
+
+	//draw left
+	for(var i = 1; i<5; i++){
+		displayNum = (xCoordDisplayScaling * i * 50).toFixed(2)
+		displayNum *= -1;
+		ctext.beginPath();
+		ctext.textAlign="center";
+		ctext.textBaseline="middle";
+		ctext.fillText(displayNum, 256-(50*i), 256+yOff);
+		ctext.closePath();
+	}
+
+	//draw right
+	for(var i = 1; i<5; i++){
+		displayNum = (xCoordDisplayScaling * i * 50) .toFixed(2)
+		displayNum*=1;
+		ctext.beginPath();
+		ctext.textAlign="center";
+		ctext.textBaseline="middle";
+		ctext.fillText(displayNum, 256+(50*i), 256+yOff);
+		ctext.closePath();
+	}
+
+}
+
+function drawBorder(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.strokeStyle = "#4CAF50"
+	ctext.lineWidth = 5;
+	ctext.beginPath();
+	ctext.moveTo(0,0);
+	ctext.lineTo(0, 512);
+	ctext.stroke();
+	ctext.moveTo(0,512);
+	ctext.lineTo(512, 512);
+	ctext.stroke();
+	ctext.moveTo(512,512);
+	ctext.lineTo(512, 0);
+	ctext.stroke();
+	ctext.moveTo(512,0);
+	ctext.lineTo(0, 0);
+	ctext.stroke();
+	ctext.closePath();
+}
+
+function drawTicks(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	ctext.strokeStyle = "#AAAAAA"
+	ctext.lineWidth = 1;
+
+	//distance between ticks
+	var tickOff = 26;
+
+	//paint left
+
+	for(var i = 1; i<10; i++){
+		ctext.beginPath();
+		ctext.moveTo(256-(i*tickOff), 256-10);
+		ctext.lineTo(256-(i*tickOff), 256+10);
+		ctext.stroke();
+		ctext.closePath();
+	}
+
+	//paint right
+	for(i = 1; i<10; i++){
+		ctext.beginPath();
+		ctext.moveTo(256+(i*tickOff), 256-10);
+		ctext.lineTo(256+(i*tickOff), 256+10);
+		ctext.stroke();
+		ctext.closePath();
+	}
+
+	//paint up
+	for(i=1; i<10; i++){
+		ctext.beginPath();
+		ctext.moveTo(256-10, 256-(i*tickOff));
+		ctext.lineTo(256+10, 256-(i*tickOff));
+		ctext.stroke();
+		ctext.closePath();
+	}
+
+	//paint down
+	for(i=1; i<10; i++){
+		ctext.beginPath();
+		ctext.moveTo(256-10, 256+(i*tickOff));
+		ctext.lineTo(256+10, 256+(i*tickOff));
+		ctext.stroke();
+		ctext.closePath();
+	}
+	drawBorder();
+}
+
+
+var xScaling = 1;
+var yScaling = 1;
+var xCoordDisplayScaling = 1;
+var yCoordDisplayScaling = 1;
+var lastSetGraphed = [];
+var lastXScale;
+var lastYScale;
+
+function updateScaleDisplay(){
+
+	var x = document.getElementById("xbox");
+	var y = document.getElementById("ybox");
+	x.innerHTML = "X Scale: " + xScaling.toFixed(2) + ":1.0"
+	y.innerHTML = "Y Scale: " + yScaling.toFixed(2) + ":1.0"
+
+}
+
+function incrementXScale(){
+	if(xScaling < 200){
+		xScaling *=2;
+		xCoordDisplayScaling /=2;
+	}
+	updateScaleDisplay();
+	//refresh();
+}
+
+function incrementYScale(){
+	if(yScaling < 200){
+		yScaling *=2;
+		yCoordDisplayScaling /=2;
+	}
+	updateScaleDisplay();
+	//refresh();
+}
+
+function decrementXScale(){
+	if(xScaling > 0.1){
+		xScaling /=2;
+		xCoordDisplayScaling *=2;
+	}
+	updateScaleDisplay();
+	//refresh();
+}
+
+function decrementYScale(){
+	if(yScaling > 0.1){
+		yScaling /=2;
+		yCoordDisplayScaling *=2;
+	}
+	updateScaleDisplay();
+	//refresh();
+}
+
+
+//NOTE offset is a function of the display size, this is based on canvas 512x512
+//This is included as a correction
+var xoffset = 0;
+var yoffset = -0.125;
+
+//Stores the last round of display values from input to allow
+//adjustment of the display
+var lastVals = [];
+
+var canvas = document.getElementById("graph");
+canvas.addEventListener("mousemove", function(event){
+	document.getElementById("lowLabel").innerHTML = (xCoordDisplayScaling*(-256 + getAbsoluteX(canvas, event))).toFixed(1) + ", " + (yCoordDisplayScaling*(256 - getAbsoluteY(canvas, event))).toFixed(1);
+}, false);
+
+//Thanks www.html5canvastutorials.com for the walkthrough of this awesome feature!! getBoundingClientRect!
+function getAbsoluteX(canvas, event){
+	var box = canvas.getBoundingClientRect();
+	return (event.clientX - box.left + xoffset);
+}
+
+function getAbsoluteY(canvas, event){
+	var box = canvas.getBoundingClientRect();
+	return (event.clientY - box.top + yoffset);
+}
 
 function drawAxes(){
 	var d = document.getElementById("graph");
@@ -43,20 +352,21 @@ function drawAxes(){
 	dtext.moveTo(0, 256);
 	dtext.lineTo(512, 256);
 	dtext.stroke();
-	dtext.strokeStyle = "#566D7E"
+	dtext.strokeStyle = "#AAAAAA"
 	dtext.moveTo(256, 0);
 	dtext.lineTo(256, 512);
 	dtext.stroke();
 	dtext.strokeStyle = "#000000"
 	dtext.closePath();
+	drawBorder();
 }
-
 
 function clearGraph(){
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
 	ctext.clearRect(0,0,512,512);	//recommended way to do this
 	drawAxes();
+	drawTicks();
 }
 
 function box(){
@@ -72,6 +382,7 @@ function box(){
 	ctext.lineTo(0,0);
 	ctext.stroke();		//draw the line, sounds dirty
 	ctext.closePath();
+	drawBorder();
 }
 
 function straightLine(){
@@ -84,8 +395,8 @@ function straightLine(){
 	ctext.lineTo(512,0);	//set up a line to draw
 	ctext.stroke();		//draw the line
 	ctext.closePath();
+	drawBorder();
 }
-
 
 function frowney(){
 	clearGraph();
@@ -120,9 +431,11 @@ function frowney(){
 	ctext.strokeStyle="#000000";
 	ctext.stroke();
 	ctext.closePath();	
+	drawBorder();
 }
 
 function smiley(){
+	clearGraph();
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
 	ctext.fillStyle = "#FFFF33";
@@ -153,7 +466,8 @@ function smiley(){
 	ctext.lineWidth = 6;
 	ctext.strokeStyle="#000000";
 	ctext.stroke();
-	ctext.closePath();	
+	ctext.closePath();
+	drawBorder();
 }
 
 
@@ -163,7 +477,6 @@ function buildQuadratic(){
 		var tupes = {};
 		tupes.x = i;
 		tupes.y = i*i;
-		console.log(tupes.x + ", " + tupes.y);
 		arr.push(tupes);
 	}
 	return arr;
@@ -173,6 +486,9 @@ function quadratic(){
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
 	var vals = buildQuadratic();
+	lastSetGraphed = deepCopy(vals);
+	scaleXCoords(vals, xScaling);
+	scaleYCoords(vals, yScaling);
 	ctext.beginPath();
 	ctext.strokeStyle="#000000";
 	ctext.lineWidth = 1;
@@ -183,12 +499,16 @@ function quadratic(){
 		ctext.moveTo((256+vals[i].x), (256-vals[i].y));	//move cursor for next line (probably redundant)
 	}
 	ctext.closePath();
+	drawBorder();
 }
 
 function sine(){
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
 	var vals = buildSineArr();
+	lastSetGraphed = deepCopy(vals);
+	scaleXCoords(vals, xScaling);
+	scaleYCoords(vals, yScaling);
 	ctext.beginPath();
 	ctext.strokeStyle="#000000";
 	ctext.lineWidth = 1;
@@ -199,7 +519,7 @@ function sine(){
 		ctext.moveTo((256 + vals[i].x), (256-vals[i].y));//move cursor for next line (probably redundant)
 	}
 	ctext.closePath();
-
+	drawBorder();
 }
 
 function buildSineArr(){
@@ -207,12 +527,40 @@ function buildSineArr(){
 	for(var i = -256; i<255; i++){
 		var tupes = {};
 		tupes.x = i;
-		tupes.y = Math.floor(50*Math.sin((i*180)/Math.PI));
+		tupes.y = Math.floor(25*Math.sin((i*180)/Math.PI));
 		arr.push(tupes);
 	}
 	return arr;
 }
 
-</script>
+function drawGraph(coordArray){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	lastSetGraphed = deepCopy(coordArray);
+	scaleXCoords(coordArray, xScaling);
+	scaleYCoords(coordArray, yScaling);
+	ctext.beginPath();
+	ctext.strokeStyle="#000000";
+	ctext.lineWidth = 1;
+	ctext.moveTo(0, 256); //move cursor to axis
+	for(var i = 0; i<coordArray.length; i++){
+		ctext.lineTo((256 +coordArray[i].x), (256-coordArray[i].y));//setup line
+		ctext.stroke();//draw next line
+		ctext.moveTo((256 + coordArray[i].x), (256-coordArray[i].y));//move cursor for next line (probably redundant)
+	}
+	ctext.closePath();
+	drawBorder();
+}
 
-</HTML>
+function deepCopy(arr){
+	temp = []
+	for(var i = 0; i<arr.length; i++){
+		temp.push(arr[i]);
+	}
+	return temp;
+}
+
+</script>
+	
+</body>
+</html>
