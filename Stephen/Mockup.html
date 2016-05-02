@@ -1,8 +1,7 @@
 <!--
-	Authors:	
-	Date:	
+	Authors:
+	Date:
 	File: calculator.html
-	Live at people.eecs.ku.edu/~slongofo/project/mockup_site/mock.html
 -->
 <html>
 <head>
@@ -123,8 +122,8 @@ function refresh(){
 	//draw labels
 	drawLabels();
 	
-	//graph last array again
-	drawGraph(lastSetGraphed);
+	//graph last array again (broken)
+	//drawGraph(lastSetGraphed);
 }
 
 function drawLabels(){
@@ -288,7 +287,7 @@ function incrementXScale(){
 		xCoordDisplayScaling /=2;
 	}
 	updateScaleDisplay();
-	//refresh();
+	refresh();
 }
 
 function incrementYScale(){
@@ -297,7 +296,7 @@ function incrementYScale(){
 		yCoordDisplayScaling /=2;
 	}
 	updateScaleDisplay();
-	//refresh();
+	refresh();
 }
 
 function decrementXScale(){
@@ -306,7 +305,7 @@ function decrementXScale(){
 		xCoordDisplayScaling *=2;
 	}
 	updateScaleDisplay();
-	//refresh();
+	refresh();
 }
 
 function decrementYScale(){
@@ -315,7 +314,7 @@ function decrementYScale(){
 		yCoordDisplayScaling *=2;
 	}
 	updateScaleDisplay();
-	//refresh();
+	refresh();
 }
 
 
