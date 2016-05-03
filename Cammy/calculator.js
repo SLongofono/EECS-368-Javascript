@@ -235,15 +235,15 @@ document.getElementById("Exponent").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("ToEvaluate").addEventListener('click', function() {
-	if (expression.endsWith(".") || expression.endsWith("+") || expression.endsWith("-"))
+	if (expression.endsWith(".")) //|| expression.endsWith("+") || expression.endsWith("-"))
 	{
 		expression += "0";
 	}
 	if (expression.endsWith("/") || expression.endsWith("^") || expression.endsWith("*"))
 	{
-		expression += "1";
+	//	expression += "1";
 	}
-	if (!expression.endsWith(")"))
+	if (checkValidExpression(expression) && !expression.endsWith(")"))
 	{
 		expression = "("+expression+")";
 	}
