@@ -5,11 +5,11 @@
 	background-color: #4CAF50;
 	border-radius: 20px;
 }
-#ToEvaluate{
+#ToEvaluate,#ToClear{
 	width: 158px;
 }
-#ToClear{
-	width: 158px;
+#ToBackspace{
+	width: 104px;
 }
 body {
 	background-color: lightblue;
