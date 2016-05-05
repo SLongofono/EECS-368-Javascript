@@ -1,7 +1,7 @@
 currently viewable at people.eecs.ku.edu/~jschilmo/integrate.html
 
 working on:
-drawIntegral function
+drawIntegral function --- should be complete, will need to test
 polynomial + bounds + number of subintervals -> tuples ;parser
 
 
