@@ -24,7 +24,7 @@ function displayScreen() {
 /*	Checks if expression ends with an operator, returns false if it does, true if it doesn't	*/
 function checkValidExpression(expr)
 {
-	if (expr.endsWith(".") || expr.endsWith("^") || expr.endsWith("+") || expr.endsWith("-") || expr.endsWith("*") || expr.endsWith("/"))
+	if (expr.endsWith("(") || expr.endsWith(".") || expr.endsWith("^") || expr.endsWith("+") || expr.endsWith("-") || expr.endsWith("*") || expr.endsWith("/"))
 	{
 		return false;
 	}
@@ -189,10 +189,22 @@ document.getElementById("Divide").addEventListener('click', function() {
 	}
 	displayScreen();
 });
-document.getElementById("Parenthesis").addEventListener('click', function() {
+document.getElementById("LeftParen").addEventListener('click', function() {
+	if (checkValidExpression(expression) && expression != "")
+	{
+		expression += "*";
+	}
+	if (!expression.endsWith(")") && !expression.endsWith("."))
+	{	
+		expression += document.getElementById("LeftParen").value;
+	}
+	
+	displayScreen();
+});
+document.getElementById("RightParen").addEventListener('click', function() {
 	if (checkValidExpression(expression) && expression != "" && !expression.endsWith(")"))
 	{	
-		expression = "(" + expression + ")";
+		expression += document.getElementById("RightParen").value;
 	}
 	
 	displayScreen();
@@ -225,24 +237,28 @@ document.getElementById("Variable").addEventListener('click', function() {
 	
 });
 document.getElementById("Exponent").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "")
+	if (checkValidExpression(expression) && expression != "" && !isExponent)
 	{	
 
 		expression += document.getElementById("Exponent").value;
-
+		isExponent = true;
 	}
 	
 	displayScreen();
 });
 document.getElementById("ToEvaluate").addEventListener('click', function() {
-	if (expression.endsWith(".")) //|| expression.endsWith("+") || expression.endsWith("-"))
+	checkParenthesis();
+	if (expression.endsWith(".") || expression.endsWith ("+") || expression.endsWith("-"))
 	{
 		expression += "0";
 	}
-	if (expression.endsWith("/") || expression.endsWith("^") || expression.endsWith("*"))
+	
+	if (expression.endsWith("*") || expression.endsWith ("^") || expression.endsWith("/"))
 	{
-	//	expression += "1";
+		expression += "1";
+		
 	}
+	
 	if (checkValidExpression(expression) && !expression.endsWith(")"))
 	{
 		expression = "("+expression+")";
@@ -250,6 +266,49 @@ document.getElementById("ToEvaluate").addEventListener('click', function() {
 	
 	displayScreen();
 });
+function checkParenthesis()
+{
+	var leftp = 0;
+	var rightp = 0;
+	var ntrue = true;
+	
+	for (var i = 0; i < expression.length; i++)
+	{
+		if (expression.charAt(i) == "(")
+		{
+			leftp++;
+		}
+		if (expression.charAt(i) == ")")
+		{
+			rightp++;
+		}
+	}
+	while (leftp > rightp)
+	{
+		expression += ")";
+		rightp++;
+	}
+	while (rightp > leftp)
+	{
+		expression = "(" + expression;
+		leftp++;
+	}
+	var m = 0;
 
+	for (i = 0; i < expression.length-1; i++)
+	{
+		expression = expression.replace("()","");
+		if (expression.charAt(i) == "(" && expression.charAt(i+1) == "(")
+		{
+			for (var j = i; j < expression.length-1; j++)
+			{
+				if (expression.charAt(j) == ")" && expression.charAt(j+1) == ")")
+				{
+					expression = expression.substring(0,i) + expression.substring(i+2,j);
+				}
+			}
+		}
+	}
+}
 //call calculator
 calculator();
