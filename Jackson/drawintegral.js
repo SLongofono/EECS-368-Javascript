@@ -13,10 +13,29 @@ function drawIntegral(tuples){
 	//loops for each x
 	for(var i=0;i<tuples.length;i++){
 		//accounts for each y starting at tuple value down to y=1
-		for(var j=0;j<tuples[i].y;j++){
-			ctext.lineTo((256+tuples[i].x),(256-(tuples[i].y - j)));
+		//conditional required for functions below the x-axis
+		if(tuples[i].y>0){
+			for(var j=0;j<tuples[i].y;j++){
+				ctext.lineTo((256+tuples[i].x),(256-(tuples[i].y - j)));
+				ctext.stroke();
+				ctext.moveTo((256+tuples[i].x),(256-(tuples[i].y - j)));
+			}
+		}
+		else if(tuples[i].y<0){
+			for(var j=0;j<tuples[i].y;j++){
+				ctext.lineTo((256+tuples[i].x),(256-(tuples[i].y + j)));
+				ctext.stroke();
+				ctext.moveTo((256+tuples[i].x),(256-(tuples[i].y + j)));
+			}
+		}
+		else if(tuples[i].y==0){
+			//integral is zero so
+			ctext.lineTo((256+tuples[i].x),(256-tuples[i].y));
 			ctext.stroke();
-			ctext.moveTo((256+tuples[i].x),(256-(tuples[i].y - j)));
+			ctext.moveTo((256+tuples[i].x),(256-tuples[i].y));
+		}
+		else{
+			//out of bounds
 		}
 	}
 	ctext.closePath();
