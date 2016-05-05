@@ -72,7 +72,8 @@ var notfunc = "";
 var x = 10;
 
 function evaluateThis(){
-	input = $("#function").val();
+	//needs 'function' id to work alone
+	input = document.getElementById("screen").innerHTML;
 	while(replaceCaret(input))
 	{
 		//Do nothing.
