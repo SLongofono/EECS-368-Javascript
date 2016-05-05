@@ -280,7 +280,16 @@ function checkParenthesis()
 {
 	var leftp = 0;
 	var rightp = 0;
+	if (expression.endsWith(".") || expression.endsWith ("+") || expression.endsWith("-"))
+	{
+		expression += "0";
+	}
 	
+	if (expression.endsWith("*") || expression.endsWith ("^") || expression.endsWith("/"))
+	{
+		expression += "1";
+		
+	}
 	for (var i = 0; i < expression.length; i++)
 	{
 		if (expression.charAt(i) == "(")
@@ -313,6 +322,7 @@ function checkParenthesis()
 			{
 				if (expression.charAt(j) == ")" && expression.charAt(j+1) == ")")
 				{
+					
 					expression = expression.substring(0,i) + expression.substring(i+2,j);
 				}
 			}
