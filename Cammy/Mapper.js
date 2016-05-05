@@ -1,6 +1,6 @@
 
 var input = "";
-var func = "";
+var notfunc = "";
 var x = 10;
 
 function evaluateThis(){
@@ -16,7 +16,7 @@ function evaluateThis(){
 
 function mapper(leftBound, rightBound, stepSize){
 	input = document.getElementById("screen").innerHTML;
-	func = document.getElementById("screen").innerHTML;
+	notfunc = document.getElementById("screen").innerHTML;
 	var arrayMap = [];
 	var y = 0;
 
@@ -41,7 +41,7 @@ function mapper(leftBound, rightBound, stepSize){
 		tuple.y = y
 		arrayMap.push(tuple);
 
-		input = func;
+		input = notfunc;
 	}
 	
 	return arrayMap;
