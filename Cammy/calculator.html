@@ -6,20 +6,19 @@
 <html>
 <head>
 	<title>EECS 368 - Calculator</title>
-	<link rel="stylesheet" 
-			href="calculator.css">
+	<link rel="stylesheet" href="calculator.css">
 </head>
 <body>
 	</br></br>
 	<!-- Display Screen (User Input)-->
 	<div id="screen_display" class="displays">
 		<p id="screen"><span id="screen_span"></span><span id="g_or_i"></span></p>
-	</div>
+	</div> <!-- End Display Screen (User Input)-->
 	</br>
 	<!-- Display Results -->
 	<div id="results_display" class="displays">
 		<p id="results"></p>
-	</div>
+	</div> <!-- End Display Results -->
 	</br>
 	<!--Display Calculator Controls -->
 	<div id="controls_display">	
@@ -28,7 +27,7 @@
 		<div id="integrate_or_graph">
 			  <input type="radio" name="inte_or_gra" id="display_graphing" checked></input>Graph
 			  <input type="radio" name="inte_or_gra" id="display_integration"></input>Integrate
-		</div>
+		</div> <!-- End Select Integration or Graphing mode -->
 	
 		<!-- Set expression -->
 		<div id="set_expression">
@@ -62,8 +61,8 @@
 			<button class="button" id="ToClear">Clear</button>
 			</br>
 			<button class="button" id="ToEvaluate" onclick="evaluateThis()">Evaluate</button> <!-- This button evaluates, return function here-->
-		</div>
-	</div>
+		</div> <!-- End Set expression -->
+	</div> <!--End Display Calculator Controls -->
 
 	<br>
 	<!-- Begin Stephen graph HTML -->
