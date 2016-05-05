@@ -1,5 +1,6 @@
 
 var input = "";
+var func = "";
 var x = 10;
 
 function evaluateThis(){
@@ -15,25 +16,32 @@ function evaluateThis(){
 
 function mapper(leftBound, rightBound, stepSize){
 	input = document.getElementById("screen").innerHTML;
+	func = document.getElementById("screen").innerHTML;
 	var arrayMap = [];
 	var y = 0;
-	while(replaceCaret(input))
-	{
-		//Do nothing.
-		//This loops so that every caret is found and replaced.
-	}
+
 	
 	//Start at left bound, go to right bound in steps of size stepSize.
 	for(i=leftBound; i<rightBound+stepSize; i+=stepSize)
 	{
+
 		var tuple = {};
 		//This line assumes 'x' is used as the variable in the input from the html.
 		x = i;
+
+		while(replaceCaret(input))
+		{
+			//Do nothing.
+			//This loops so that every caret is found and replaced.
+		}
+
 		y = eval(input);
 
 		tuple.x = i;
 		tuple.y = y
 		arrayMap.push(tuple);
+
+		input = func;
 	}
 	
 	return arrayMap;
