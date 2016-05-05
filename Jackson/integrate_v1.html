@@ -1,0 +1,61 @@
+<html>
+	<body>
+		<p>Inegrates available functions from A to B</p>
+		<p>Function <input type="text" name="function"><br></p>
+		<p>Boundary A: 0<br></p>
+		<p>Boundary B: 10<br></p>
+		<button id="button" type="submit" value="Integrate X" onclick="integrateXLin()">Integrate X<br></button>
+		<button id="button" type="submit" value="Integrate X^2" onclick="integrateXQuad()">Integrate X^2<br></button>
+		<div id="integral"></div>
+	</body>
+</html>
+
+<script type="text/javascript">
+//v2.0 
+//takes in tuples, outputs value as an int
+
+//returns value of integral in string form or error
+//assumes tuples[a].x and tuples[a].y are defined as an ordered pair
+function integrate(tuples){
+	var sum = 0;
+	var boundB = tuples[tuples.length - 1].x
+	var boundA = tuples[0].x
+	for(var i=0;i<(tuples.length-1);i++){
+		sum += ((tuples[i+1].x - tuples[i].x)*(tuples[i+1].y + tuples[i].y));
+	}
+	return (.5 * sum);
+}
+
+//for testing, returns tuples array with x and y corresponding to y=x^2, bounds hard coded
+function xQuad(){
+	var tempArr = [];
+	var boundA = 0;
+	var boundB = 10;
+	for(var i=boundA;i<=boundB;i++){
+		var tuple = {};
+		tuple.x = i;
+		tuple.y = Math.pow(i,2);
+		tempArr.push(tuple);
+	}
+	return tempArr;
+}
+//for testing, returns tuples array with x and y corresponding to y=x, bounds hard coded
+function xLin(){
+	var tempArr = [];
+	for(var i=0;i<=10;i++){
+		var tuple = {};
+		tuple.x = i;
+		tuple.y = i;
+		tempArr.push(tuple);
+	}
+	return tempArr;
+}
+//for testing, runs integrate() with xLin() as input
+function integrateXLin(){
+	document.getElementById("integral").innerHTML = integrate(xLin());
+}
+//for testing, runs integrate() with xQuad() as input
+function integrateXQuad(){
+	document.getElementById("integral").innerHTML = integrate(xQuad());
+}
+</script>
