@@ -8,6 +8,7 @@
 	<title>EECS 368 - Calculator</title>
 	<link rel="stylesheet" 
 			href="calculator.css">
+	<script src="Mapper.js"></script>
 </head>
 <body>
 	</br></br>
@@ -58,7 +59,7 @@
 			</br>
 			<button class="button" id="ToClear">Clear</button>
 			</br>
-			<button class="button" id="ToEvaluate" onclick="evaluateThis()">Evaluate</button> <!-- This button evaluates, return function here-->
+			<button class="button" id="ToEvaluate" onclick="evaluate()">Evaluate</button> <!-- This button evaluates, return function here-->
 		</div>
 	</div>
 	<br>
@@ -70,6 +71,7 @@
 	<div style="text-align:center;"><p id="lowLabel"></p></div>
 	<div style="text-align:center;">
 		<input onclick="sine()" type="submit" id="butn" value="Sine" class="graphButton">
+		<input onclick="drawIntegral()" type="submit" id="butn" value="Integral" class="graphButton">
 		<input onclick="quadratic()" type="submit" id="butn" value="Quadratic" class="graphButton">
 		<input onclick="clearGraph()" type="submit" id="texts" value="Labels" class="graphButton">
 		<input onclick="clearGraph()" type="submit" id="butn" value="Clear" class="graphButton">
@@ -79,8 +81,8 @@
 		<input onclick="incrementYScale()" type="image" id="yScaleUp" value="Zoom Y+" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/yplus.png" style="width:50;height:50;">
 		<input onclick="decrementYScale()" type="image" id="yScaleDown" value="Zoom Y-" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/yminus.png" style="width:50;height:50;">
 		<br>
-		<div id="xbox" style="text-align:center;">X Scale: 1.0</div>
-		<div id="ybox" style="text-align:center;">Y Scale: 1.0</div>
+		<div id="xbox" style="text-align:center;">X Scale: 8.00:1.0</div>
+		<div id="ybox" style="text-align:center;">Y Scale: 1.00:1.0</div>
 	</div>
 	</div>
 	<!-- End Stephen graph HTML -->
@@ -128,9 +130,9 @@ two, because the displayed values scaled are inversely proportional
 to the actual coordinate values.
 */
 
-var xScaling = 1;
+var xScaling = 8;
 var yScaling = 1;
-var xCoordDisplayScaling = 1;
+var xCoordDisplayScaling = 0.125;
 var yCoordDisplayScaling = 1;
 var lastSetGraphed = [];
 
@@ -396,7 +398,7 @@ tick labels are re-drawn.
 @post - No return
 */
 function incrementXScale(){
-	if(xScaling < 200){
+	if(xScaling < 64){
 		xScaling *=2;
 		xCoordDisplayScaling /=2;
 	}
@@ -405,7 +407,7 @@ function incrementXScale(){
 }
 
 function incrementYScale(){
-	if(yScaling < 200){
+	if(yScaling < 64){
 		yScaling *=2;
 		yCoordDisplayScaling /=2;
 	}
@@ -414,7 +416,7 @@ function incrementYScale(){
 }
 
 function decrementXScale(){
-	if(xScaling > 0.1){
+	if(xScaling > 1){
 		xScaling /=2;
 		xCoordDisplayScaling *=2;
 	}
@@ -642,6 +644,43 @@ function drawGraph(coordArray){
 	}
 	ctext.closePath();
 	drawBorder();
+}
+///////////////////////////////////////////////////////////////////////
+//draw integrate function
+function drawIntegral(){
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	var tuples = buildQuadratic();
+	//copy of tuples
+	lastTuples = deepCopy(tuples);
+	scaleXCoords(tuples, xScaling);
+	scaleYCoords(tuples, yScaling);
+	//document.getElementById("integralVal").innerHTML = integrate(tuples);
+	//loops for each x
+	for(var i=0;i<tuples.length;i++){
+		//accounts for each y starting at tuple value down to y=1
+		//conditional required for functions below the x-axis
+		if(tuples[i].y>=0){
+			ctext.fillRect((256+tuples[i].x),(256-tuples[i].y),(1*xScaling),tuples[i].y);
+		}
+		else if(tuples[i].y<0){
+			ctext.fillRect((256+tuples[i].x),(256-tuples[i].y),(1*xScaling),tuples[i].y);
+		}
+		else{
+			//out of bounds
+		}
+	}
+	ctext.closePath();
+	drawBorder();
+}
+function integrate(tuples){
+	var sum = 0;
+	var boundB = tuples[tuples.length-1].x;
+	var boundA = tuples[0].x;
+	for(var i=0;i<(tuples.length-1);i++){
+		sum += ((tuples[i+1].x - tuples[i].x)*(tuples[i+1].y + tuples[i].y));
+	}
+	return (.5 * sum);
 }
 
 /*
