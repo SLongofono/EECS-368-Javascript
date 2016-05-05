@@ -250,6 +250,12 @@ document.getElementById("Exponent").addEventListener('click', function() {
 	
 	displayScreen();
 });
+
+document.getElementById("ToBackspace").addEventListener('click', function() {
+	expression = expression.slice(0,-1);
+	displayScreen();
+});
+
 document.getElementById("ToEvaluate").addEventListener('click', function() {
 	checkParenthesis();
 	if (expression.endsWith(".") || expression.endsWith ("+") || expression.endsWith("-"))
