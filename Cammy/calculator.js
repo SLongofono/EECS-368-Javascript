@@ -231,6 +231,10 @@ document.getElementById("ToClear").addEventListener('click', function() {
 document.getElementById("Variable").addEventListener('click', function() {
 	if (!expression.endsWith("x") && !expression.endsWith("."))
 	{
+		if (checkValidExpression(expression))
+		{
+			expression += "*";
+		}
 		expression += document.getElementById("Variable").value;
 	}
 	displayScreen();
@@ -270,7 +274,6 @@ function checkParenthesis()
 {
 	var leftp = 0;
 	var rightp = 0;
-	var ntrue = true;
 	
 	for (var i = 0; i < expression.length; i++)
 	{
