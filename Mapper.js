@@ -84,7 +84,7 @@ function replaceCaret(){
 		}
 		if(input.charAt(caretIndex+1) == '(')
 		{
-			endIndex = input.indexOf(')');
+			endIndex = leftHand.length + 1 + rightHand.indexOf(')');
 		}
 		else
 		{
