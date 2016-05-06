@@ -69,7 +69,6 @@ function integrateFunc(){
 }
 //onpress function for integrating under function on screen
 function drawIntegral(){
-	refresh();
 	var boundA_String = document.getElementById("bounda").innerHTML;
 	var boundA_Int = parseInt(boundA_String);
 	var boundB_String = document.getElementById("boundb").innerHTML;
