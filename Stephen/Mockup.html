@@ -138,12 +138,12 @@ var xCoordDisplayScaling = 0.125;
 var yCoordDisplayScaling = 1;
 refresh();
 //This will be our initialization for the graphing function
-var lastSetGraphed = [];
+var defaultGraph = [];
 for(var k = -256; k<255; k++){
 	var temp = {};
 	temp.x = k;
-	temp.y = 2;
-	lastSetGraphed.push(temp);
+	temp.y = k;
+	defaultGraph.push(temp);
 	
 }
 
@@ -642,7 +642,11 @@ and then uses a linear interpolation of graph them on the canvas.
 function drawGraph(){
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
-	var temp = deepCopy(lastSetGraphed);
+	var temp = mapper(-256,255,1);
+	console.log(temp[0].x + " " + temp[0].y);
+	if(temp.length < 1){
+		temp = deepCopy(defaultGraph);
+	}
 	scaleXCoords(temp, xScaling);
 	scaleYCoords(temp, yScaling);
 	ctext.beginPath();
