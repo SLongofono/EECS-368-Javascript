@@ -26,12 +26,9 @@
 	</br>
 	<!--Display Calculator Controls -->
 	<div id="controls_display">	
-
-		<!-- Select Integration or Graphing mode -->
-		<div id="integrate_or_graph">
-			  <input type="radio" name="inte_or_gra" id="display_graphing" checked></input>Graph
-			  <input type="radio" name="inte_or_gra" id="display_integration"></input>Integrate
-		</div> <!-- End Select Integration or Graphing mode -->
+		A regular calculator
+		</br>
+		Evaluate button may have to be pressed a few times depending on incorrect ending syntax.
 	
 		<!-- Set expression -->
 		<div id="set_expression">
@@ -106,7 +103,8 @@
 		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate X" onclick="integrateXLin()">Integrate X<br></button>
 		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate X^2" onclick="integrateXQuad()">Integrate X^2<br></button>
 		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate" onclick="integrateFunc()">Integrate Function<br></button>
-		<div id="integral"></div>
+		</br>
+		Integral Result: <div id="integral"></div>
 	</div>
 	<!--End Integral Input-->
 	
