@@ -22,9 +22,9 @@ function displayScreen() {
 }
 
 /*	Checks if expression ends with an operator, returns false if it does, true if it doesn't	*/
-function checkValidExpression(expr)
+function checkValidExpression()
 {
-	if (expr.endsWith("(") || expr.endsWith(".") || expr.endsWith("^") || expr.endsWith("+") || expr.endsWith("-") || expr.endsWith("*") || expr.endsWith("/"))
+	if (expression.endsWith("(") || expression.endsWith(".") || expression.endsWith("^") || expression.endsWith("+") || expression.endsWith("-") || expression.endsWith("*") || expression.endsWith("/"))
 	{
 		return false;
 	}
@@ -153,7 +153,7 @@ document.getElementById("Zero").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("Plus").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "")
+	if (checkValidExpression() && expression != "")
 	{	
 
 		expression += document.getElementById("Plus").value;
@@ -162,7 +162,7 @@ document.getElementById("Plus").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("Minus").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "")
+	if (checkValidExpression() && expression != "")
 	{	
 		
 		expression += document.getElementById("Minus").value;
@@ -172,7 +172,7 @@ document.getElementById("Minus").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("Multiply").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "")
+	if (checkValidExpression() && expression != "")
 	{	
 
 		expression += document.getElementById("Multiply").value;
@@ -181,7 +181,7 @@ document.getElementById("Multiply").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("Divide").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "")
+	if (checkValidExpression() && expression != "")
 	{	
 
 		expression += document.getElementById("Divide").value;
@@ -190,7 +190,7 @@ document.getElementById("Divide").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("LeftParen").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "")
+	if (checkValidExpression() && expression != "")
 	{
 		expression += "*";
 	}
@@ -202,7 +202,7 @@ document.getElementById("LeftParen").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("RightParen").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "" && !expression.endsWith(")"))
+	if (checkValidExpression() && expression != "" && !expression.endsWith(")"))
 	{	
 		expression += document.getElementById("RightParen").value;
 	}
@@ -210,7 +210,7 @@ document.getElementById("RightParen").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("Decimal").addEventListener('click', function() {
-	if (checkValidExpression(expression) && !expression.endsWith("x") && expression != "" && !isDecimal && !expression.endsWith(")") && !expression.endsWith("x"))
+	if (checkValidExpression() && !expression.endsWith("x") && expression != "" && !isDecimal && !expression.endsWith(")") && !expression.endsWith("x"))
 	{	
 		expression += document.getElementById("Decimal").value;
 		isDecimal = true;
@@ -241,7 +241,7 @@ document.getElementById("Variable").addEventListener('click', function() {
 	
 });
 document.getElementById("Exponent").addEventListener('click', function() {
-	if (checkValidExpression(expression) && expression != "")
+	if (checkValidExpression() && expression != "")
 	{	
 
 		expression += document.getElementById("Exponent").value;
@@ -268,12 +268,17 @@ document.getElementById("ToEvaluate").addEventListener('click', function() {
 		expression += "1";
 		
 	}
-	
-	if (checkValidExpression(expression) && !expression.endsWith(")"))
+	if (checkValidExpression() && !expression.endsWith(")"))
 	{
 		expression = "("+expression+")";
 	}
-	
+
+	if (expression.endsWith("(*") || expression.endsWith(")*") || expression.endsWith("*)") || expression.endsWith("*("))
+	{
+		expression = expression.slice(0,-2);
+		expression += ")";
+	}
+	expression = expression.replace("()","");
 	displayScreen();
 });
 function checkParenthesis()
@@ -311,7 +316,7 @@ function checkParenthesis()
 		expression = "(" + expression;
 		leftp++;
 	}
-	var m = 0;
+	
 
 	for (i = 0; i < expression.length-1; i++)
 	{
@@ -327,6 +332,8 @@ function checkParenthesis()
 				}
 			}
 		}
+		
+		
 	}
 }
 //call calculator
