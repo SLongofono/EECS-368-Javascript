@@ -15,10 +15,18 @@ function evaluateThis(){
 }
 
 function mapper(leftBound, rightBound, stepSize){
-	input = document.getElementById("screen").innerHTML;
-	notfunc = document.getElementById("screen").innerHTML;
 	var arrayMap = [];
 	var y = 0;
+
+
+	input = document.getElementById("screen").innerHTML;
+	
+	if(input=="")
+	{
+		return arrayMap;	
+	}
+	
+	notfunc = document.getElementById("screen").innerHTML;
 
 	
 	//Start at left bound, go to right bound in steps of size stepSize.
