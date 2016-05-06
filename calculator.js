@@ -231,7 +231,7 @@ document.getElementById("ToClear").addEventListener('click', function() {
 document.getElementById("Variable").addEventListener('click', function() {
 	if (!expression.endsWith("x") && !expression.endsWith("."))
 	{
-		if (checkValidExpression(expression))
+		if (checkValidExpression(expression) && expression != "")
 		{
 			expression += "*";
 		}
