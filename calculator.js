@@ -272,21 +272,30 @@ document.getElementById("ToEvaluate").addEventListener('click', function() {
 	{
 		expression = "("+expression+")";
 	}
-	var index = [];
-	index.push(expression.indexOf("(*"));
-	index.push(expression.indexOf(")*"));
-	index.push(expression.indexOf("*)"));
-	index.push(expression.indexOf("*("));
-	//removes any *), *(, )*, *( that might pass false conditions
-	for (i = 0; i < index.length; i++)
+
+	//removes any *) that might pass false conditions and replace it with a )
+	//indexOf doesn't work
+	if (expression.endsWith("*)"))
 	{
-		if (index[i] > -1)
-		{
-			expression.splice(index[i], 2);
-			expression += ")";
-		}
-		
+		expression = expression.slice(0, -2);
+		expression += ")";
 	}
+	if (expression.endsWith("*))"))
+	{
+		expression = expression.slice(0, -3);
+		expression += ")";
+	}
+	if (expression.endsWith("*)))"))
+	{
+		expression = expression.slice(0, -4);
+		expression += ")";
+	}
+	if (expression.endsWith("*))))"))
+	{
+		expression = expression.slice(0, -5);
+		expression += ")";
+	}
+	//removes any remaining ()
 	expression = expression.replace("()","");
 	displayScreen();
 });
@@ -333,12 +342,12 @@ function checkParenthesis()
 		expression = "(" + expression;
 		leftp++;
 	}
-	//Takes out any empty parenthesis created
-	//Removes any wrapped parenthesis in parenthesis that are useless 
+	//Takes out any empty parenthesis created 
 	for (var i = 0; i < expression.length-1; i++)
 	{
 		expression = expression.replace("()","");
-		if (expression.charAt(i) == "(" && expression.charAt(i+1) == "(")
+	//Removes any wrapped parenthesis in parenthesis that are useless
+	/*	if (expression.charAt(i) == "(" && expression.charAt(i+1) == "(")
 		{
 			for (var j = i; j < expression.length-1; j++)
 			{
@@ -348,7 +357,7 @@ function checkParenthesis()
 					expression = expression.substring(0,i) + expression.substring(i+2,j);
 				}
 			}
-		}
+		} */
 	}
 	displayScreen();
 }
