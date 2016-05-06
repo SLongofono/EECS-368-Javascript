@@ -1,21 +1,15 @@
 /**
  * @File: calculator.js
- * @authors:
- * @Date:
+ * @authors: Cammy Vo
+ * @Date: 5/6/16
  */
 
 
 var expression = ""; //global expression to be evaluated
 var isNegative = false; //check if current expression is negative
 var isParenthesis = false; //check if current expression has unclosed parenthesis
-var isExponent = false; //check if current expression is in an exponent (only allow 0-9)
 var isDecimal = false; //check if current expression is already a floating point number
 
-/*	Main Calculator Function	*/
-function calculator() {
-
-	displayScreen();
-}
 /*	Screen Display	*/
 function displayScreen() {
 	document.getElementById("screen").innerHTML = expression;
@@ -31,7 +25,7 @@ function checkValidExpression()
 	return true;
 }
 /*	Event Listeners for 0-9, +, -, /, *, (), ., x, ^, clear
-*	Each event listener will only add its variable if valid conditions are met
+*	Each event listener will only add its variable if valid conditions are met then calls display screen
 */
 document.getElementById("One").addEventListener('click', function() {
 	if (expression.endsWith(")"))
@@ -218,16 +212,6 @@ document.getElementById("Decimal").addEventListener('click', function() {
 	
 	displayScreen();
 });
-document.getElementById("ToClear").addEventListener('click', function() {
-	expression = "";	//clears expression
-	document.getElementById("results").innerHTML = ""; //clears results
-	isNegative = false; //resets values
-	isParenthesis = false; 
-	isExponent = false; 
-	isDecimal = false;
-	displayScreen();
-	
-});
 document.getElementById("Variable").addEventListener('click', function() {
 	if (!expression.endsWith("x") && !expression.endsWith("."))
 	{
@@ -250,14 +234,30 @@ document.getElementById("Exponent").addEventListener('click', function() {
 	
 	displayScreen();
 });
-
+//Clears expression and conditions
+document.getElementById("ToClear").addEventListener('click', function() {
+	expression = "";	//clears expression
+	document.getElementById("results").innerHTML = ""; //clears results
+	isNegative = false; //resets values
+	isParenthesis = false; 
+	isExponent = false; 
+	isDecimal = false;
+	displayScreen();
+	
+});
+//Removes last character from string
+//Calls Displays Screen
 document.getElementById("ToBackspace").addEventListener('click', function() {
 	expression = expression.slice(0,-1);
 	displayScreen();
 });
-
+//Checks valid evaluating conditions
+//Calls checkParenthesis to check parentehsis validity
+//Adds extra variables in case of expression evaluating badly based on ending syntax
+//Adds parenthesis if evaluation is pressed
 document.getElementById("ToEvaluate").addEventListener('click', function() {
 	checkParenthesis();
+
 	if (expression.endsWith(".") || expression.endsWith ("+") || expression.endsWith("-"))
 	{
 		expression += "0";
@@ -272,19 +272,34 @@ document.getElementById("ToEvaluate").addEventListener('click', function() {
 	{
 		expression = "("+expression+")";
 	}
-
-	if (expression.endsWith("(*") || expression.endsWith(")*") || expression.endsWith("*)") || expression.endsWith("*("))
+	var index = [];
+	index.push(expression.indexOf("(*"));
+	index.push(expression.indexOf(")*"));
+	index.push(expression.indexOf("*)"));
+	index.push(expression.indexOf("*("));
+	//removes any *), *(, )*, *( that might pass false conditions
+	for (i = 0; i < index.length; i++)
 	{
-		expression = expression.slice(0,-2);
-		expression += ")";
+		if (index[i] > -1)
+		{
+			expression.splice(index[i], 2);
+			expression += ")";
+		}
+		
 	}
 	expression = expression.replace("()","");
 	displayScreen();
 });
+
+
+//Checks the parenthesis are valid
+//Removes extra invalid parenthesis
+//Adds some extra required parentehsis
 function checkParenthesis()
 {
 	var leftp = 0;
 	var rightp = 0;
+	//Preconditional adding if ending syntax is incorrect
 	if (expression.endsWith(".") || expression.endsWith ("+") || expression.endsWith("-"))
 	{
 		expression += "0";
@@ -295,6 +310,7 @@ function checkParenthesis()
 		expression += "1";
 		
 	}
+	//Loops through entire expression and checks how many parenthesis are mismatched
 	for (var i = 0; i < expression.length; i++)
 	{
 		if (expression.charAt(i) == "(")
@@ -306,6 +322,7 @@ function checkParenthesis()
 			rightp++;
 		}
 	}
+	//Adds parenthesis to mismatched area with less parenthesis
 	while (leftp > rightp)
 	{
 		expression += ")";
@@ -316,9 +333,9 @@ function checkParenthesis()
 		expression = "(" + expression;
 		leftp++;
 	}
-	
-
-	for (i = 0; i < expression.length-1; i++)
+	//Takes out any empty parenthesis created
+	//Removes any wrapped parenthesis in parenthesis that are useless 
+	for (var i = 0; i < expression.length-1; i++)
 	{
 		expression = expression.replace("()","");
 		if (expression.charAt(i) == "(" && expression.charAt(i+1) == "(")
@@ -332,9 +349,8 @@ function checkParenthesis()
 				}
 			}
 		}
-		
-		
 	}
+	displayScreen();
 }
-//call calculator
-calculator();
+//call display screen
+displayScreen();

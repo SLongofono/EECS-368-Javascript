@@ -1,12 +1,12 @@
 <!--
-	Authors:
-	Date:
+	Authors: Stephen, Michael, Cammy, Jackson
+	Date: 5/6/16
 	File: calculator.html
 -->
 <html>
 <head>
 	<title>EECS 368 - Calculator</title>
-	<!--SO FAR DOES NOT INCLUDE JQUERY-->
+	<!-- CSS and JQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="calculator.css">
 </head>
@@ -30,7 +30,7 @@
 		</br>
 		Evaluate button may have to be pressed a few times depending on incorrect ending syntax.
 	
-		<!-- Set expression -->
+		<!-- Calculator Buttons -->
 		<div id="set_expression">
 			<button class="button" value = "1" id="One">1</button>
 			<button class="button" value = "2" id="Two">2</button>
@@ -61,14 +61,15 @@
 			</br>
 			<button class="button" id="ToClear">Clear</button>
 			</br>
-			<button class="button" id="ToEvaluate" onclick="evaluateThis()">Evaluate</button> <!-- This button evaluates, return function here-->
-		</div> <!-- End Set expression -->
+			<button class="button" id="ToEvaluate" onclick="evaluateThis()">Evaluate</button>
+		</div> <!-- End Calculator Buttons -->
 	</div> <!--End Display Calculator Controls -->
 	</br>
 	
 	<!--Integral Input -->
 	<div id="integral_display" class="displays">
 		<p>Inegrates available functions from A to B</p>
+		<!-- Buttons for Left Bound -->
 		Left Bound: 
 			<button class="LRbutton" value = "0" id="Zero_Left">0</LRbutton>
 			<button class="LRbutton" value = "1" id="One_Left">1</button>
@@ -82,7 +83,8 @@
 			<button class="LRbutton" value = "9" id="Nine_Left">9</button>
 			<button class="LRbutton" id="ToBackspace_Left">Back</button>
 			<button class="LRbutton" id="ToClear_Left">Clear</button>
-		</br>
+		</br> <!-- End Buttons for Left Bound -->
+		<!-- Buttons for Right Bound -->
 		Right Bound:
 			<button class="LRbutton" value = "0" id="Zero_Right">0</button>
 			<button class="LRbutton" value = "1" id="One_Right">1</button>
@@ -96,15 +98,17 @@
 			<button class="LRbutton" value = "9" id="Nine_Right">9</button>
 			<button class="LRbutton" id="ToBackspace_Right">Back</button>
 			<button class="LRbutton" id="ToClear_Right">Clear</button>
-		</br>
-		
+		</br><!-- End Buttons for Right Bound -->
+		<!-- Left/Right Bound Input Display-->
 		<p>Left Boundary(A): <p id="bounda" type="number" name="bounda" value="10"></p>
 		<p>Right Boundary(B): <p id="boundb" type="number" name="boundb" value="0"></p>
+		<!-- Integrating Buttons -->
 		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate X" onclick="integrateXLin()">Integrate X<br></button>
 		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate X^2" onclick="integrateXQuad()">Integrate X^2<br></button>
 		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate" onclick="integrateFunc()">Integrate Function<br></button>
-		</br>
-		Integral Result: <div id="integral"></div>
+		</br> <!-- End Inegrating Buttons -->
+		<!-- Result for Integral -->
+		Integral Result: <div id="integral"></div> <!-- End Result for Integral -->
 	</div>
 	<!--End Integral Input-->
 	
@@ -138,7 +142,7 @@
 	</br>
 	
 
-	
+	<!-- Javscript Files -->
 	<script type="text/javascript" src="calculator.js"></script>
 	
 	<script type="text/javascript" src="Mapper.js"></script>

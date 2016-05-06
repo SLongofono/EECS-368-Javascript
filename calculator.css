@@ -1,3 +1,4 @@
+/*calculator button */
 .button{
 	height: 25px;
 	width: 50px;
@@ -5,6 +6,7 @@
 	background-color: #70BF73;
 	border-radius: 20px;
 }
+/*integral bound buttons */
 .LRbutton
 {
 	height: 25px;
@@ -13,9 +15,11 @@
 	background-color: lightgrey;
 	border-radius: 20px;
 }
+/*long integral bound buttons */
 #ToBackspace_Left,#ToClear_Left,#ToBackspace_Right,#ToClear_Right{
 	width: 50px;
 }
+/*integrate button functions */
 .IntegrateButtons
 {
 	height: 25px;
@@ -24,15 +28,19 @@
 	background-color: lightgrey;
 	border-radius: 20px;
 }
+/*calculator function button */
 #ToEvaluate,#ToClear{
 	width: 158px;
 }
+/*calculator function button */
 #ToBackspace{
 	width: 104px;
 }
+/*background */
 body {
 	background-color: lightblue;
 }
+/*calculator button */
 #controls_display{
 	text-align: center;
 	margin-left: 300px;
@@ -44,6 +52,7 @@ body {
 	border-width: 5px;
 	border-color: green;
 }
+/*main display blocks*/
 .displays{
 	background-color: white;
 	word-wrap: break-word;
