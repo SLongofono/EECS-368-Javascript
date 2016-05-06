@@ -5,6 +5,25 @@
 	background-color: #4CAF50;
 	border-radius: 20px;
 }
+.LRbutton
+{
+	height: 25px;
+	width: 20px;
+	text-align: center;
+	background-color: lightgrey;
+	border-radius: 20px;
+}
+#ToBackspace_Left,#ToClear_Left,#ToBackspace_Right,#ToClear_Right{
+	width: 50px;
+}
+.IntegrateButtons
+{
+	height: 25px;
+	width: 150px;
+	text-align: center;
+	background-color: lightgrey;
+	border-radius: 20px;
+}
 #ToEvaluate,#ToClear{
 	width: 158px;
 }
