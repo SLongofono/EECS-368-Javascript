@@ -67,3 +67,22 @@ function integrateFunc(){
 	//document.getElementById("integral").innerHTML = integrate(mapper(0,10,1));
 	document.getElementById("integral").innerHTML = integrate(mapper(boundA_Int,boundB_Int,1));
 }
+//onpress function for integrating under function on screen
+function drawIntegral(){
+	refresh();
+	var c = document.getElementById("graph");
+	var ctext = c.getContext("2d");
+	var tuples = mapper(-256,255,1);
+	if(tuples.length < 1){
+		tuples = deepCopy(defaultGraph);
+	}
+	scaleXCoords(tuples, xScaling);
+	scaleYCoords(tuples, yScaling);
+	//loops for each x
+	for(var i=0;i<tuples.length;i++){
+		//draws a rectangle with height y and width x at (x,y)
+		ctext.fillRect((256+tuples[i].x),(256-tuples[i].y),(1*xScaling),tuples[i].y);
+	}
+	ctext.closePath();
+	drawBorder();
+}
