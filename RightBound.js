@@ -1,17 +1,22 @@
-
+//global variable for right bound input
 right_bound_expression = "";
 
+//displays the right bound
 function displayScreen_RightBound() {
 	document.getElementById("boundb").innerHTML = right_bound_expression;
 }
+//takes out the last inputted number
 document.getElementById("ToBackspace_Right").addEventListener('click', function() {
 	right_bound_expression = right_bound_expression.slice(0,-1);
 	displayScreen_RightBound();
 });
+//clears the entire expression
 document.getElementById("ToClear_Right").addEventListener('click', function() {
 	right_bound_expression = "";
 	displayScreen_RightBound();
 });
+
+//adds 0-9 based on user input onto the current global string
 document.getElementById("Zero_Right").addEventListener('click', function() {
 	right_bound_expression += "0";
 	displayScreen_RightBound();
