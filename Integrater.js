@@ -12,10 +12,8 @@ function xQuad(){
 	var tempArr = [];
 //	var boundA = $("#boundb").val();
 //	var boundB = $("#bounda").val();
-	//takes in the current left bound and converts it to type int
 	var boundA_String = document.getElementById("bounda").innerHTML;
 	var boundA_Int = parseInt(boundA_String);
-	//takes in the current right bound and converts it to type int
 	var boundB_String = document.getElementById("boundb").innerHTML;
 	var boundB_Int = parseInt(boundB_String);
 
@@ -32,10 +30,8 @@ function xLin(){
 	var tempArr = [];
 //	var boundA = $("#boundb").val();
 //	var boundB = $("#bounda").val();
-	//takes in the current left bound and converts it to type int
 	var boundA_String = document.getElementById("bounda").innerHTML;
 	var boundA_Int = parseInt(boundA_String);
-	//takes in the current right bound and converts it to type int
 	var boundB_String = document.getElementById("boundb").innerHTML;
 	var boundB_Int = parseInt(boundB_String);
 
@@ -63,23 +59,25 @@ function integrateFunc(){
 	console.log(func);
 	//var boundA = $("#bounda").val(); //left
 	//var boundB = $("#boundb").val(); //right
-	//takes in the current left bound and converts it to type int
 	var boundA_String = document.getElementById("bounda").innerHTML;
 	var boundA_Int = parseInt(boundA_String);
-	//takes in the current right bound and converts it to type int
 	var boundB_String = document.getElementById("boundb").innerHTML;
 	var boundB_Int = parseInt(boundB_String);
 	
 	//document.getElementById("integral").innerHTML = integrate(mapper(0,10,1));
-	//passes in the bounds and step size into mapper which is passed into integrate and passes it to the screen
 	document.getElementById("integral").innerHTML = integrate(mapper(boundA_Int,boundB_Int,1));
 }
 //onpress function for integrating under function on screen
 function drawIntegral(){
 	refresh();
+	var boundA_String = document.getElementById("bounda").innerHTML;
+	var boundA_Int = parseInt(boundA_String);
+	var boundB_String = document.getElementById("boundb").innerHTML;
+	var boundB_Int = parseInt(boundB_String);
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
-	var tuples = mapper(-256,255,1);
+	var tuples = mapper(boundA_Int,boundB_Int,1);
+	console.log(tuples[0].x + "" + tuples[0].y);
 	if(tuples.length < 1){
 		tuples = deepCopy(defaultGraph);
 	}
