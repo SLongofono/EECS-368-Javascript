@@ -20,8 +20,6 @@ Purpose: 		This is my contribution to our project, a Javascript graphing calcula
 				April 14, 2016
 */
 	
-//top left is 0,0
-//center through (256,256)
 
 /*
 These globals are used to track the current scale of the display.
@@ -540,6 +538,7 @@ and then uses a linear interpolation of graph them on the canvas.
 
 */
 function drawGraph(){
+	refresh();
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
 	var temp = mapper(-256,255,1);
@@ -560,43 +559,6 @@ function drawGraph(){
 	}
 	ctext.closePath();
 	drawBorder();
-}
-///////////////////////////////////////////////////////////////////////
-//draw integrate function
-function drawIntegral(){
-	var c = document.getElementById("graph");
-	var ctext = c.getContext("2d");
-	var tuples = buildQuadratic();
-	//copy of tuples
-	lastTuples = deepCopy(tuples);
-	scaleXCoords(tuples, xScaling);
-	scaleYCoords(tuples, yScaling);
-	//document.getElementById("integralVal").innerHTML = integrate(tuples);
-	//loops for each x
-	for(var i=0;i<tuples.length;i++){
-		//accounts for each y starting at tuple value down to y=1
-		//conditional required for functions below the x-axis
-		if(tuples[i].y>=0){
-			ctext.fillRect((256+tuples[i].x),(256-tuples[i].y),(1*xScaling),tuples[i].y);
-		}
-		else if(tuples[i].y<0){
-			ctext.fillRect((256+tuples[i].x),(256-tuples[i].y),(1*xScaling),tuples[i].y);
-		}
-		else{
-			//out of bounds
-		}
-	}
-	ctext.closePath();
-	drawBorder();
-}
-function integrate(tuples){
-	var sum = 0;
-	var boundB = tuples[tuples.length-1].x;
-	var boundA = tuples[0].x;
-	for(var i=0;i<(tuples.length-1);i++){
-		sum += ((tuples[i+1].x - tuples[i].x)*(tuples[i+1].y + tuples[i].y));
-	}
-	return (.5 * sum);
 }
 
 /*
