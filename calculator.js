@@ -202,7 +202,7 @@ document.getElementById("LeftParen").addEventListener('click', function() {
 	displayScreen();
 });
 document.getElementById("RightParen").addEventListener('click', function() {
-	if (checkValidExpression() && expression != "" && !expression.endsWith(")"))
+	if (expression.indexOf("(") != -1 && checkValidExpression() && expression != "" && !expression.endsWith(")"))
 	{	
 		expression += document.getElementById("RightParen").value;
 	}
