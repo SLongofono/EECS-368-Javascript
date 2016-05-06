@@ -44,7 +44,13 @@ function integrateXQuad(){
 function integrateFunc(){
 	var func = document.getElementById("screen").innerHTML;
 	console.log(func);
-	var boundB = $("#boundb").val();
-	var boundA = $("#bounda").val();
-	document.getElementById("integral").innerHTML = integrate(mapper(0,10,1));
+	//var boundA = $("#bounda").val(); //left
+	//var boundB = $("#boundb").val(); //right
+	var boundA_String = document.getElementById("bounda").innerHTML;
+	var boundA_Int = parseInt(boundA_String);
+	var boundB_String = document.getElementById("boundb").innerHTML;
+	var boundB_Int = parseInt(boundB_String);
+	
+	//document.getElementById("integral").innerHTML = integrate(mapper(0,10,1));
+	document.getElementById("integral").innerHTML = integrate(mapper(boundA_Int,boundB_Int,1));
 }
