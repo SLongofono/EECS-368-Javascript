@@ -274,27 +274,7 @@ document.getElementById("ToEvaluate").addEventListener('click', function() {
 	}
 
 	//removes any *) that might pass false conditions and replace it with a )
-	//indexOf doesn't work
-	if (expression.endsWith("*)"))
-	{
-		expression = expression.slice(0, -2);
-		expression += ")";
-	}
-	if (expression.endsWith("*))"))
-	{
-		expression = expression.slice(0, -3);
-		expression += ")";
-	}
-	if (expression.endsWith("*)))"))
-	{
-		expression = expression.slice(0, -4);
-		expression += ")";
-	}
-	if (expression.endsWith("*))))"))
-	{
-		expression = expression.slice(0, -5);
-		expression += ")";
-	}
+	expression = expression.replace("*)",")");
 	//removes any remaining ()
 	expression = expression.replace("()","");
 	displayScreen();
