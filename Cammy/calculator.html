@@ -72,11 +72,13 @@
 	</div>
 	<div style="text-align:center;"><p id="lowLabel"></p></div>
 	<div style="text-align:center;">
-		<input onclick="sine()" type="submit" id="butn" value="Sine" class="graphButton">
+		<!--<input onclick="sine()" type="submit" id="butn" value="Sine" class="graphButton">
 		<input onclick="drawIntegral()" type="submit" id="butn" value="Integral" class="graphButton">
 		<input onclick="quadratic()" type="submit" id="butn" value="Quadratic" class="graphButton">
 		<input onclick="clearGraph()" type="submit" id="texts" value="Labels" class="graphButton">
 		<input onclick="clearGraph()" type="submit" id="butn" value="Clear" class="graphButton">
+		-->
+		<input onclick="drawGraph()" type="submit" id="graphbutn" value="Graph It" class="graphButton">
 		<br>
 		<input onclick="incrementXScale()" type="image" id="xScaleUp" value="Zoom X+" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/xplus.png" style="width:50;height:50;">
 		<input onclick="decrementXScale()" type="image" id="xScaleDown" value="Zoom X-" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/xminus.png" style="width:50;height:50;">
@@ -89,16 +91,17 @@
 	</div>
 	<!-- End Stephen graph HTML -->
 	</br>
-
-	</br>
 	
-	<script type="text/javascript" src="calculator.js"></script>
+
+	
+	<script type="text/javascript"
+			src="calculator.js">
+	</script>
 	
 	<script type="text/javascript" src="Mapper.js"></script>
-
 	<script type="text/javascript">
 
-/*	
+/*
 Title:			Graphing Section
 Author: 		Stephen Longofono
 Created: 		April 2016
@@ -135,7 +138,17 @@ var xScaling = 8;
 var yScaling = 1;
 var xCoordDisplayScaling = 0.125;
 var yCoordDisplayScaling = 1;
-var lastSetGraphed = [];
+refresh();
+//This will be our initialization for the graphing function
+var defaultGraph = [];
+for(var k = -256; k<255; k++){
+	var temp = {};
+	temp.x = k;
+	temp.y = k;
+	defaultGraph.push(temp);
+	
+}
+
 
 //These variables are used to correct a strange bug in the canvas element.  For some reason, the
 //center of the canvas does not exactly match the absolute coordinates it uses internally.
@@ -279,7 +292,7 @@ function drawLabels(){
 /*
 This function is included as a hacky way to solve a problem with borders on canvas elements.
 When a CSS border is placed about a canvas element, the width of the border is included in the
-absolute coordinates.  That is, if a 2 pixel border is added, the canvas still interprets the 
+absolute coordinates.  That is, if a 2 pixel border is added, the canvas still interprets the
 origin as the upper right corner of the board, when the desired result would be (2,2).
 
 For this reason, this function was included, which draws a "border" within the bounds of the
@@ -315,7 +328,7 @@ function drawBorder(){
 This function is a helper which draws in tick marks along both axes.
 
 @pre - No preconditions
-@process - draws orthogonal ticks at regular intervals along each of the 
+@process - draws orthogonal ticks at regular intervals along each of the
 	axes on the canvas element
 @post - No return, the ticks are drawn
 */
@@ -369,11 +382,11 @@ function drawTicks(){
 }
 
 /*
-This function is responsible for updating the user feedback for the current 
+This function is responsible for updating the user feedback for the current
 scale of the canvas element.  It provides user feedback to help interpret the
 graph.
 
-@pre - The 'xScaling' and 'yScaling' variables are populated 
+@pre - The 'xScaling' and 'yScaling' variables are populated
 @process - Updates the DOM elements with the current scale of the display.
 @post - No return, the display is updated.
 */
@@ -495,9 +508,9 @@ function drawAxes(){
 This function is a wrapper around the recommended method for clearing a canvas element.
 It clears all drawing from the graph, and then re-draws the axes, ticks, and tick labels.
 
-@pre - Canvas element exists, the 'xScaling', 'yScaling', 'xCoordDisplayScaling', and 
+@pre - Canvas element exists, the 'xScaling', 'yScaling', 'xCoordDisplayScaling', and
 	'yCoordDisplayScaling' variables are populated.
-@process - 
+@process -
 @post - No return, the graph is cleared and new references are drawn in
 
 */
@@ -624,24 +637,28 @@ and then uses a linear interpolation of graph them on the canvas.
 @pre - The 'xScaling', 'yScaling', 'xCoordDisplayScaling', and 'yCoordDisplayScaling'
 	variables are populated.  Takes in an array of coordinate objects, assumed to have
 	numerical fields 'x' and 'y'.
-@process - The coordinates are scaled, and the function is graphed using linear interpolation. 
+@process - The coordinates are scaled, and the function is graphed using linear interpolation.
 @post - No return, the function is graphed
 
 */
-function drawGraph(coordArray){
+function drawGraph(){
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
-	lastSetGraphed = deepCopy(coordArray);
-	scaleXCoords(coordArray, xScaling);
-	scaleYCoords(coordArray, yScaling);
+	var temp = mapper(-256,255,1);
+	console.log(temp[0].x + " " + temp[0].y);
+	if(temp.length < 1){
+		temp = deepCopy(defaultGraph);
+	}
+	scaleXCoords(temp, xScaling);
+	scaleYCoords(temp, yScaling);
 	ctext.beginPath();
 	ctext.strokeStyle="#000000";
 	ctext.lineWidth = 1;
 	ctext.moveTo(0, 256); //move cursor to axis
-	for(var i = 0; i<coordArray.length; i++){
-		ctext.lineTo((256 +coordArray[i].x), (256-coordArray[i].y));//setup line
+	for(var i = 0; i<temp.length; i++){
+		ctext.lineTo((256 +temp[i].x), (256-temp[i].y));//setup line
 		ctext.stroke();//draw next line
-		ctext.moveTo((256 + coordArray[i].x), (256-coordArray[i].y));//move cursor for next line (probably redundant)
+		ctext.moveTo((256 + temp[i].x), (256-temp[i].y));//move cursor for next line (probably redundant)
 	}
 	ctext.closePath();
 	drawBorder();
@@ -685,7 +702,7 @@ function integrate(tuples){
 }
 
 /*
-This function is a helper to provide a deeo copy of an array.
+This function is a helper to provide a deep copy of an array.
 It is used to preserved the current function being graphed, so that if the scale changes
 it can be refreshed without having to generate the values again.
 
@@ -697,19 +714,15 @@ it can be refreshed without having to generate the values again.
 function deepCopy(arr){
 	temp = []
 	for(var i = 0; i<arr.length; i++){
-		temp.push(arr[i]);
+		var newTuple = {};
+		newTuple.x = arr[i].x;
+		newTuple.y = arr[i].y;
+		temp.push(newTuple);
 	}
 	return temp;
 }
 
 </script>
 	
-</body>
-</html>
-
-
-
-
-
 </body>
 </html>
