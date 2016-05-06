@@ -27,7 +27,9 @@ function mapper(leftBound, rightBound, stepSize){
 	var arrayMap = [];
 	var y = 0;
 	
-	if(input=="")
+	console.log(typeof input);
+	
+	if(input=="" || typeof input !== 'string')
 	{
 		return arrayMap;	
 	}
