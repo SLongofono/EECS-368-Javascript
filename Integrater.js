@@ -10,9 +10,15 @@ function integrate(tuples){
 }
 function xQuad(){
 	var tempArr = [];
-	var boundA = $("#boundb").val();
-	var boundB = $("#bounda").val();
-	for(var i=boundA;i<=boundB;i++){
+//	var boundA = $("#boundb").val();
+//	var boundB = $("#bounda").val();
+	var boundA_String = document.getElementById("bounda").innerHTML;
+	var boundA_Int = parseInt(boundA_String);
+	var boundB_String = document.getElementById("boundb").innerHTML;
+	var boundB_Int = parseInt(boundB_String);
+
+//	for(var i=boundA;i<=boundB;i++){
+	for(var i=boundA_Int;i<=boundB_Int;i++){
 		var tuple = {};
 		tuple.x = i;
 		tuple.y = Math.pow(i,2);
@@ -22,9 +28,16 @@ function xQuad(){
 }
 function xLin(){
 	var tempArr = [];
-	var boundA = $("#boundb").val();
-	var boundB = $("#bounda").val();
-	for(var i=boundA;i<=boundB;i++){
+//	var boundA = $("#boundb").val();
+//	var boundB = $("#bounda").val();
+	var boundA_String = document.getElementById("bounda").innerHTML;
+	var boundA_Int = parseInt(boundA_String);
+	var boundB_String = document.getElementById("boundb").innerHTML;
+	var boundB_Int = parseInt(boundB_String);
+
+	
+//	for(var i=boundA;i<=boundB;i++){
+	for(var i=boundA_Int;i<=boundB_Int;i++){
 		var tuple = {};
 		tuple.x = i;
 		tuple.y = i;
