@@ -542,7 +542,6 @@ function drawGraph(){
 	var c = document.getElementById("graph");
 	var ctext = c.getContext("2d");
 	var temp = mapper(-256,255,1);
-	console.log(temp[0].x + " " + temp[0].y);
 	if(temp.length < 1){
 		temp = deepCopy(defaultGraph);
 	}
