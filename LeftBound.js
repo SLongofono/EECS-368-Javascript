@@ -5,6 +5,14 @@ left_bound_expression = "";
 function displayScreen_LeftBound() {
 	document.getElementById("bounda").innerHTML = left_bound_expression;
 }
+//Minus sign
+document.getElementById("Minus_Left").addEventListener('click', function() {
+	if (left_bound_expression == "")
+	{
+		left_bound_expression += "-";
+	}
+	displayScreen_LeftBound();
+});
 //takes out the last inputted number
 document.getElementById("ToBackspace_Left").addEventListener('click', function() {
 	left_bound_expression = left_bound_expression.slice(0,-1);
