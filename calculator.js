@@ -21,7 +21,7 @@ function checkValidExpression()
 	}
 	return true;
 }
-/*	Event Listeners for 0-9, +, -, /, *, (), ., x, ^
+/*	Event Listeners for 0-9, +, -, /, *, (, ), ., x, ^
 *	Some event listeners will add extra variables corresponding to the variable before it
 *	Each event listener will only add its variable if valid conditions are met then calls display screen
 */
