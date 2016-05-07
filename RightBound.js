@@ -25,7 +25,8 @@ document.getElementById("ToClear_Right").addEventListener('click', function() {
 	displayScreen_RightBound();
 });
 
-//adds 0-9 based on user input onto the current global string
+/*0-9 event listeners
+adds 0-9 based on user input onto the current global string*/
 document.getElementById("Zero_Right").addEventListener('click', function() {
 	right_bound_expression += "0";
 	displayScreen_RightBound();
@@ -66,3 +67,4 @@ document.getElementById("Nine_Right").addEventListener('click', function() {
 	right_bound_expression += "9";
 	displayScreen_RightBound();
 });
+/*end 0-9 event listeners*/
