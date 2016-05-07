@@ -19,9 +19,9 @@ document.getElementById("ToBackspace_Right").addEventListener('click', function(
 	right_bound_expression = right_bound_expression.slice(0,-1);
 	displayScreen_RightBound();
 });
-//clears the entire expression
+//clears the entire expression and sets it to 0
 document.getElementById("ToClear_Right").addEventListener('click', function() {
-	right_bound_expression = "";
+	right_bound_expression = "0";
 	displayScreen_RightBound();
 });
 

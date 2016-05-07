@@ -1,12 +1,9 @@
 /**
  * @File: calculator.js
  * @authors: Cammy Vo
- * @Date: 5/6/16
  */
 
-
 var expression = ""; //global expression to be evaluated
-var isNegative = false; //check if current expression is negative
 var isParenthesis = false; //check if current expression has unclosed parenthesis
 var isDecimal = false; //check if current expression is already a floating point number
 
@@ -24,7 +21,8 @@ function checkValidExpression()
 	}
 	return true;
 }
-/*	Event Listeners for 0-9, +, -, /, *, (), ., x, ^, clear
+/*	Event Listeners for 0-9, +, -, /, *, (), ., x, ^
+*	Some event listeners will add extra variables corresponding to the variable before it
 *	Each event listener will only add its variable if valid conditions are met then calls display screen
 */
 document.getElementById("One").addEventListener('click', function() {
@@ -234,13 +232,13 @@ document.getElementById("Exponent").addEventListener('click', function() {
 	
 	displayScreen();
 });
+/*End Event Listeners for 0-9, +, -, /, *, (), ., x, ^*/
+
 //Clears expression and conditions
+//Displays screen
 document.getElementById("ToClear").addEventListener('click', function() {
 	expression = "";	//clears expression
-	document.getElementById("results").innerHTML = ""; //clears results
-	isNegative = false; //resets values
-	isParenthesis = false; 
-	isExponent = false; 
+	isParenthesis = false; //clears variables
 	isDecimal = false;
 	displayScreen();
 	
@@ -256,8 +254,11 @@ document.getElementById("ToBackspace").addEventListener('click', function() {
 //Adds extra variables in case of expression evaluating badly based on ending syntax
 //Adds parenthesis if evaluation is pressed
 document.getElementById("ToEvaluate").addEventListener('click', function() {
+	//call checkParenthesis
 	checkParenthesis();
 
+	//if expression ends with an operator, add a variable that won't change the expression
+	//and to allow evaluation
 	if (expression.endsWith(".") || expression.endsWith ("+") || expression.endsWith("-"))
 	{
 		expression += "0";
@@ -268,6 +269,8 @@ document.getElementById("ToEvaluate").addEventListener('click', function() {
 		expression += "1";
 		
 	}
+	
+	//wraps the expression in parenthesis after evaluation
 	if (checkValidExpression() && !expression.endsWith(")"))
 	{
 		expression = "("+expression+")";
@@ -288,7 +291,8 @@ function checkParenthesis()
 {
 	var leftp = 0;
 	var rightp = 0;
-	//Preconditional adding if ending syntax is incorrect
+	//if expression ends with an operator, add a variable that won't change the expression
+	//and to allow evaluation
 	if (expression.endsWith(".") || expression.endsWith ("+") || expression.endsWith("-"))
 	{
 		expression += "0";
@@ -326,18 +330,6 @@ function checkParenthesis()
 	for (var i = 0; i < expression.length-1; i++)
 	{
 		expression = expression.replace("()","");
-	//Removes any wrapped parenthesis in parenthesis that are useless
-	/*	if (expression.charAt(i) == "(" && expression.charAt(i+1) == "(")
-		{
-			for (var j = i; j < expression.length-1; j++)
-			{
-				if (expression.charAt(j) == ")" && expression.charAt(j+1) == ")")
-				{
-					
-					expression = expression.substring(0,i) + expression.substring(i+2,j);
-				}
-			}
-		} */
 	}
 	displayScreen();
 }
