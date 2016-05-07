@@ -6,7 +6,7 @@ left_bound_expression = "";
 function displayScreen_LeftBound() {
 	document.getElementById("bounda").innerHTML = left_bound_expression;
 }
-//Adds Negative sign under condition
+//Adds Negative sign under condition of validity
 document.getElementById("Minus_Left").addEventListener('click', function() {
 	if (left_bound_expression == "")
 	{
@@ -25,7 +25,8 @@ document.getElementById("ToClear_Left").addEventListener('click', function() {
 	displayScreen_LeftBound();
 });
 
-//adds 0-9 based on user input onto the current global string
+/*0-9 event listeners
+adds 0-9 based on user input onto the current global string*/
 document.getElementById("Zero_Left").addEventListener('click', function() {
 	left_bound_expression += "0";
 	displayScreen_LeftBound();
@@ -66,3 +67,4 @@ document.getElementById("Nine_Left").addEventListener('click', function() {
 	left_bound_expression += "9";
 	displayScreen_LeftBound();
 });
+/*end 0-9 event listeners*/
