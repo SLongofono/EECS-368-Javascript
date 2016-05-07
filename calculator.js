@@ -7,12 +7,12 @@ var expression = ""; //global expression to be evaluated
 var isParenthesis = false; //check if current expression has unclosed parenthesis
 var isDecimal = false; //check if current expression is already a floating point number
 
-/*	Screen Display	*/
+//Screen Display
 function displayScreen() {
 	document.getElementById("screen").innerHTML = expression;
 }
 
-/*	Checks if expression ends with an operator, returns false if it does, true if it doesn't	*/
+//Checks if expression ends with an operator, returns false if it does, true if it doesn't
 function checkValidExpression()
 {
 	if (expression.endsWith("(") || expression.endsWith(".") || expression.endsWith("^") || expression.endsWith("+") || expression.endsWith("-") || expression.endsWith("*") || expression.endsWith("/"))
