@@ -106,7 +106,7 @@
 		<!-- Integrating Buttons -->
 		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate X" onclick="integrateXLin()">Integrate X<br></button>
 		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate X^2" onclick="integrateXQuad()">Integrate X^2<br></button>
-		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate" onclick="integrateFunc()">Integrate Function<br></button>
+		<button class ="IntegrateButtons" id="button" type="submit" value="Integrate" onclick="integrateFunc(); drawIntegral()">Integrate Function<br></button>
 		</br> <!-- End Inegrating Buttons -->
 		<!-- Result for Integral -->
 		Integral Result: <div id="integral"></div> <!-- End Result for Integral -->
@@ -124,10 +124,11 @@
 		<input onclick="drawGraph()" type="submit" id="graphbutn" value="Graph It" class="graphButton">
 		<input onclick="drawIntegral()" type="submit" id="integratebutn" value="Integrate It" class="graphButton">
 		<br>
-		<input onclick="incrementXScale()" type="image" id="xScaleUp" value="Zoom X+" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/xplus.png" style="width:50;height:50;">
-		<input onclick="decrementXScale()" type="image" id="xScaleDown" value="Zoom X-" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/xminus.png" style="width:50;height:50;">
-		<input onclick="incrementYScale()" type="image" id="yScaleUp" value="Zoom Y+" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/yplus.png" style="width:50;height:50;">
-		<input onclick="decrementYScale()" type="image" id="yScaleDown" value="Zoom Y-" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/yminus.png" style="width:50;height:50;">
+		Zoom In X <input onclick="incrementXScale()" type="image" id="xScaleUp" value="Zoom X+" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/xplus.png" style="width:50;height:50;">
+		Zoom Out X <input onclick="decrementXScale()" type="image" id="xScaleDown" value="Zoom X-" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/xminus.png" style="width:50;height:50;">
+		</br>
+		Zoom In Y <input onclick="incrementYScale()" type="image" id="yScaleUp" value="Zoom Y+" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/yplus.png" style="width:50;height:50;">
+		Zoom Out Y <input onclick="decrementYScale()" type="image" id="yScaleDown" value="Zoom Y-" src="http://people.eecs.ku.edu/~slongofo/project/mockup_site/image/yminus.png" style="width:50;height:50;">
 		<br>
 		<div id="xbox" style="text-align:center;">X Scale: 8.00:1.0</div>
 		<div id="ybox" style="text-align:center;">Y Scale: 1.00:1.0</div>
@@ -136,7 +137,6 @@
 	<!-- End Stephen graph HTML -->
 	</br>
 	
-
 	<!-- Javscript Files -->
 	<script type="text/javascript" src="calculator.js"></script>
 	
