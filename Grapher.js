@@ -4,20 +4,20 @@ Title:			Graphing Section
 Author: 		Stephen Longofono
 Created: 		April 2016
 Purpose: 		This is my contribution to our project, a Javascript graphing calculator.
-				Given an input of coordinate pairs (as an object with 'x' and 'y' fields),
-				it graphs them using linear interpolation.  The user has the option of adjusting
-				the range of displayed values with two pairs of buttons, each of which increases or
-				decreases the window size by a factor of two.
+			Given an input of coordinate pairs (as an object with 'x' and 'y' fields),
+			it graphs them using linear interpolation.  The user has the option of adjusting
+			the range of displayed values with two pairs of buttons, each of which increases or
+			decreases the window size by a factor of two.
 				
-				My approach made use of the HTML5 canvas library and basic Javascript to achieve
-				its goals.  There is a technique borrowed from a tutorial website, cited again
-				here for convenience.
+			My approach made use of the HTML5 canvas library and basic Javascript to achieve
+			its goals.  There is a technique borrowed from a tutorial website, cited again
+			here for convenience.
 				
-				Displaying Mouse Coordinates on hover:
-				HTML5 Canvas Tutorials
-				No Author/Editor Listed
-				Retrieved from http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/
-				April 14, 2016
+			Displaying Mouse Coordinates on hover:
+			HTML5 Canvas Tutorials
+			No Author/Editor Listed
+			Retrieved from http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/
+			April 14, 2016
 */
 	
 
@@ -102,9 +102,6 @@ function refresh(){
 	
 	//draw labels
 	drawLabels();
-	
-	//graph last array again (broken)
-	//drawGraph(lastSetGraphed);
 }
 
 /*
@@ -131,13 +128,6 @@ function drawLabels(){
 	ctext.fillStyle="Crimson";
 	ctext.textAlign="center";
 	ctext.textBaseline = "middle";
-
-	
-	//Calibration of digits references
-	//ctext.fillText("9", 256, 256);
-	//ctext.fillText("99", 256, 256);
-	//ctext.fillText("999", 256, 256);
-	//ctext.fillText("99(9", 256, 256);
 
 	//draw up
 	for(var i = 1; i<5; i++){
