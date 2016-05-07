@@ -6,7 +6,7 @@ left_bound_expression = "";
 function displayScreen_LeftBound() {
 	document.getElementById("bounda").innerHTML = left_bound_expression;
 }
-//Minus sign
+//Adds Negative sign under condition
 document.getElementById("Minus_Left").addEventListener('click', function() {
 	if (left_bound_expression == "")
 	{
