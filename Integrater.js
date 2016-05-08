@@ -10,14 +10,13 @@ function integrate(tuples){
 }
 function xQuad(){
 	var tempArr = [];
-//	var boundA = $("#boundb").val();
-//	var boundB = $("#bounda").val();
-	var boundA_String = document.getElementById("bounda").innerHTML;
-	var boundA_Int = parseInt(boundA_String);
-	var boundB_String = document.getElementById("boundb").innerHTML;
-	var boundB_Int = parseInt(boundB_String);
 
-//	for(var i=boundA;i<=boundB;i++){
+	//takes in the bounds and converts it to type int
+	var boundA_String = document.getElementById("bounda").innerHTML;
+	var boundA_Int = parseInt(boundA_String); //left
+	var boundB_String = document.getElementById("boundb").innerHTML;
+	var boundB_Int = parseInt(boundB_String); //right
+
 	for(var i=boundA_Int;i<=boundB_Int;i++){
 		var tuple = {};
 		tuple.x = i;
@@ -28,15 +27,14 @@ function xQuad(){
 }
 function xLin(){
 	var tempArr = [];
-//	var boundA = $("#boundb").val();
-//	var boundB = $("#bounda").val();
-	var boundA_String = document.getElementById("bounda").innerHTML;
-	var boundA_Int = parseInt(boundA_String);
-	var boundB_String = document.getElementById("boundb").innerHTML;
-	var boundB_Int = parseInt(boundB_String);
 
-	
-//	for(var i=boundA;i<=boundB;i++){
+	//takes in the bounds and converts it to type int
+	var boundA_String = document.getElementById("bounda").innerHTML;
+	var boundA_Int = parseInt(boundA_String); //left
+	var boundB_String = document.getElementById("boundb").innerHTML;
+	var boundB_Int = parseInt(boundB_String); //right
+
+
 	for(var i=boundA_Int;i<=boundB_Int;i++){
 		var tuple = {};
 		tuple.x = i;
@@ -57,14 +55,14 @@ function integrateXQuad(){
 function integrateFunc(){
 	var func = document.getElementById("screen").innerHTML;
 	console.log(func);
-	//var boundA = $("#bounda").val(); //left
-	//var boundB = $("#boundb").val(); //right
+
+	//takes in the bounds and converts it to type int
 	var boundA_String = document.getElementById("bounda").innerHTML;
-	var boundA_Int = parseInt(boundA_String);
+	var boundA_Int = parseInt(boundA_String); //left
 	var boundB_String = document.getElementById("boundb").innerHTML;
-	var boundB_Int = parseInt(boundB_String);
+	var boundB_Int = parseInt(boundB_String); //right
 	
-	//document.getElementById("integral").innerHTML = integrate(mapper(0,10,1));
+	//passes in the mapper to integrate and then to the html, takes in left bound, right bound, and step size
 	document.getElementById("integral").innerHTML = integrate(mapper(boundA_Int,boundB_Int,1));
 }
 //onpress function for integrating under function on screen
